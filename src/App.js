@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
+import NavBar from './components/NavBar';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+// Routes
+import HomeRoute from './routes/HomeRoute';
+import SignupRoute from './routes/SignupRoute';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div>
+          <NavBar />
+          <Route exact path="/" component={HomeRoute} />
+          <Route exact path="/signup" component={SignupRoute} />
+        </div>
+      </Router>
     );
   }
 }
