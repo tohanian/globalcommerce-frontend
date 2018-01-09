@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
-import { FETCH_PAINTINGS, SELECT_ACTIVE_PAINTING } from './actions/types';
+
+// Reducers
+import userReducer from './userReducer';
 
 const rootReducer = combineReducers({
-  paintings: paintingsReducer,
-  activePaintingId: activePaintingIdReducer
+  user: userReducer
 });
+
+export default rootReducer;

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Form, Button, Input } from 'semantic-ui-react';
+import * as actions from '../actions';
 
-export default class SignupForm extends Component {
+class SignupForm extends Component {
   state = {
     email: '',
     name: '',
@@ -17,7 +19,7 @@ export default class SignupForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.createUser(this.state);
     this.setState({
       email: '',
       password: '',
@@ -70,3 +72,5 @@ export default class SignupForm extends Component {
     );
   }
 }
+
+export default connect(null, actions)(SignupForm);
