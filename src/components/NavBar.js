@@ -22,9 +22,16 @@ export default class NavBar extends Component {
             onClick={this.handleItemClick}
           />
           <Menu.Menu position="right">
-            <Menu.Item as={NavLink} exact to="/signup">
-              <Button primary name="signup" onClick={this.handleItemClick}>
-                Sign Up
+            <Menu.Item
+              name="sign up"
+              as={NavLink}
+              exact
+              to="/signup"
+              active={activeItem === 'signup'}
+            />
+            <Menu.Item as={NavLink} exact to="/signin">
+              <Button primary name="sign in" onClick={this.handleItemClick}>
+                Sign In
               </Button>
             </Menu.Item>
           </Menu.Menu>

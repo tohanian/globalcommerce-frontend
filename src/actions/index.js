@@ -1,5 +1,4 @@
 import { CREATE_USER } from './types';
-// import artworks from '../data/artworks';
 
 const API_URL = 'http://localhost:3000';
 const SIGNUP_URL = API_URL + '/signup';
