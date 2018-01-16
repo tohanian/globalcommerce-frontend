@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Menu, Button } from 'semantic-ui-react';
 
 export default class NavBar extends Component {
-  state = { activeItem: 'home' };
+  state = { activeItem: '' };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -19,6 +19,22 @@ export default class NavBar extends Component {
             exact
             to="/"
             active={activeItem === 'home'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="agents"
+            as={NavLink}
+            exact
+            to="/agents"
+            active={activeItem === 'agents'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="listings"
+            as={NavLink}
+            exact
+            to="/listings"
+            active={activeItem === 'listings'}
             onClick={this.handleItemClick}
           />
           <Menu.Menu position="right">

@@ -5,7 +5,7 @@ const userReducer = (state = { loggedIn: false }, action) => {
     case CREATE_USER:
       return state;
     case SET_USER:
-      return { ...state, loggedIn: false };
+      return { ...state, loggedIn: true };
     default:
       return state;
   }

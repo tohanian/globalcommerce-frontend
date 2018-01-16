@@ -1,6 +1,6 @@
-import { CREATE_USER } from './types';
+// import { CREATE_USER } from './types';
+import { API_URL } from '../enviroment';
 
-const API_URL = 'http://localhost:3000';
 const SIGNUP_URL = API_URL + '/signup';
 
 export function createUser(newUser) {
