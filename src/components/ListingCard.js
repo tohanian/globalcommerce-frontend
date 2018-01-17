@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Image, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export default class ListingCard extends Component {
   convertToDollarAmount = number => {
@@ -15,8 +16,8 @@ export default class ListingCard extends Component {
   render() {
     const l = this.props.listing;
     return (
-      <Card>
-        <Card>
+      <Link to={`/listings/${l.mlsId}`}>
+        <Card link color="blue">
           <Image src={l.photos[0]} />
           <Card.Content>
             <Card.Header>
@@ -44,7 +45,7 @@ export default class ListingCard extends Component {
             </Card.Description>
           </Card.Content>
         </Card>
-      </Card>
+      </Link>
     );
   }
 }

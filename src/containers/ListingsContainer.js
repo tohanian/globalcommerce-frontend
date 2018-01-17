@@ -75,6 +75,26 @@ class ListingsContainer extends Component {
     }
   };
 
+  setMapCenter = () => {
+    if (this.state.listings.length !== 0) {
+      let sumOfLatCoordinates = 0;
+      let sumOfLngCoordinates = 0;
+      // debugger;
+      this.state.listings.forEach(
+        listing => (sumOfLatCoordinates += listing.geo.lat)
+      );
+      this.state.listings.forEach(
+        listing => (sumOfLngCoordinates += listing.geo.lng)
+      );
+      return {
+        lat: sumOfLatCoordinates / this.state.listings.length,
+        lng: sumOfLngCoordinates / this.state.listings.length
+      };
+    } else {
+      return { lat: 34.047443, lng: -118.24975 };
+    }
+  };
+
   render() {
     return (
       <div>
@@ -90,10 +110,10 @@ class ListingsContainer extends Component {
               {this.listingsContentIfLoaded()}
             </Grid.Column>
             <Grid.Column width={8}>
-              <div style={{ height: '100vh', width: '100vh' }}>
+              <div style={{ height: '100vh', width: '88vh' }}>
                 <ListingsMap
-                  center={{ lat: 34.047443, lng: -118.24975 }}
-                  zoom={11}
+                  center={this.setMapCenter()}
+                  zoom={10}
                   listings={this.filteredListings()}
                 />
               </div>
