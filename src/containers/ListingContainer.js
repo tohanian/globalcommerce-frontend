@@ -4,22 +4,40 @@ import React, { Component } from 'react';
 import { Segment, Dimmer, Loader } from 'semantic-ui-react';
 
 // React Components
-// import ListingCard from '../components/ListingCard';
+import GoogleMapReact from 'google-map-react';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
+import ListingMarker from '../components/ListingMarker';
 
 // Fake test data
 import { listingsData } from '../seed/data';
 
+const GOOGLE_MAPS_API_KEY = 'AIzaSyBDkfyTm0iB8eTWu1rCj_N5YqCMOvYJroQ';
+
 export default class ListingContainer extends Component {
   state = {
-    Listing: ''
+    listing: null
   };
 
   componentDidMount() {
     // fetch(API_URL + '/agents')
     //   .then(response => response.json())
     //   .then(agents => this.setState({ agents }));
-    // this.setState({ listing: listingsData.find(l => l.mlsId === ) });
+    // console.log(listingsData[0].mlsId);
+    // console.log(this.props.mlsId);
+    this.setState({
+      listing: listingsData.find(l => l.mlsId.toString() === this.props.mlsId)
+    });
   }
+
+  convertToDollarAmount = number => {
+    const dollarAmount =
+      '$' +
+      number.toFixed(0).replace(/./g, function(c, i, a) {
+        return i > 0 && c !== '.' && (a.length - i) % 3 === 0 ? ',' + c : c;
+      });
+    return dollarAmount;
+  };
 
   loader = () => (
     <div>
@@ -31,9 +49,70 @@ export default class ListingContainer extends Component {
     </div>
   );
 
+  listingShow = () => {
+    const l = this.state.listing;
+
+    const images = l.photos.map(photo => ({
+      original: photo,
+      thumbnail: photo
+    }));
+
+    // debugger;
+
+    return (
+      <div>
+        <div>
+          <ImageGallery items={images} />
+        </div>
+        <div>
+          <h1>
+            {`${l.address.streetNumberText} ${l.address.streetName.replace(
+              /\w\S*/g,
+              txt => {
+                return (
+                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                );
+              }
+            )}`}
+          </h1>
+          <h3>{`${l.address.city}, ${l.address.state}`}</h3>
+          <h2>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
+            l.property.bathsHalf * 0.5 +
+            l.property.bathsThreeQuarter * 0.75} ba ● ${
+            l.property.area
+          } sq.ft`}</h2>
+          <br />
+          <h1>{this.convertToDollarAmount(l.listPrice)}</h1>
+        </div>
+        <div>
+          <h3>Property Info</h3>
+          <ul>
+            <li>Type: {l.property.type}</li>
+            <li>Year Built: {l.property.yearBuilt}</li>
+            <li>Lot Size: {l.property.lotSizeArea}</li>
+            <li>Parking: {l.property.parking.description}</li>
+            <li>Laundry: {l.property.laundryFeatures}</li>
+            <li>Stories: {l.property.stories}</li>
+            <li>Parking Spaces: {l.property.parking.spaces}</li>
+            <li>Pool: {l.property.pool}</li>
+          </ul>
+          <div style={{ height: '100vh', width: '88vh' }}>
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY, language: 'en' }}
+              center={{ lat: l.geo.lat, lng: l.geo.lng }}
+              zoom={11}
+            >
+              <ListingMarker lat={l.geo.lat} lng={l.geo.lng} />
+            </GoogleMapReact>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   listingsContentIfLoaded = () => {
-    if (true) {
-      return <div>It's loaded and we're in the listing!</div>;
+    if (this.state.listing) {
+      return this.listingShow();
     } else {
       return this.loader();
     }
