@@ -6,6 +6,7 @@ import { Segment, Dimmer, Loader, Image, Card, Grid } from 'semantic-ui-react';
 // React Components
 import ListingCard from '../components/ListingCard';
 import ListingsFilterForm from '../components/ListingsFilterForm';
+import ListingsMap from '../components/ListingsMap';
 
 // Fake test data
 import { listingsData } from '../seed/data';
@@ -77,16 +78,26 @@ class ListingsContainer extends Component {
   render() {
     return (
       <div>
-        <ListingsFilterForm
-          filters={this.state.filters}
-          setFilters={this.setFilters}
-        />
+        <div>
+          <ListingsFilterForm
+            filters={this.state.filters}
+            setFilters={this.setFilters}
+          />
+        </div>
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={8}>
               {this.listingsContentIfLoaded()}
             </Grid.Column>
-            <Grid.Column width={8}>Map Goes here</Grid.Column>
+            <Grid.Column width={8}>
+              <div style={{ height: '100vh', width: '100vh' }}>
+                <ListingsMap
+                  center={{ lat: 34.047443, lng: -118.24975 }}
+                  zoom={11}
+                  listings={this.filteredListings()}
+                />
+              </div>
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </div>
