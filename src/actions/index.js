@@ -1,5 +1,5 @@
 // import { CREATE_USER } from './types';
-import { API_URL, SIGNUP_API_URL } from '../secrets/apikeys';
+import { SIGNUP_API_URL } from '../secrets/apikeys';
 
 export function createUser(newUser) {
   // console.log(newUser);

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
+
+// React Components
 import { Form } from 'semantic-ui-react';
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  geocodeByPlaceId
+} from 'react-places-autocomplete';
 
 export default class HomeContainer extends Component {
   state = { query: '' };
