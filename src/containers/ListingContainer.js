@@ -146,6 +146,7 @@ export default class ListingContainer extends Component {
               items={images}
               thumbnailPosition="right"
               showPlayButton={false}
+              showFullscreenButton={false}
             />
           </Grid.Column>
         </Grid.Row>

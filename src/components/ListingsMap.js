@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { GOOGLE_MAPS_API_KEY } from '../secrets/apikeys';
 
 // React Components
 import GoogleMapReact from 'google-map-react';

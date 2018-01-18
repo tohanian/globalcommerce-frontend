@@ -24,17 +24,13 @@ const bathroomsFilterOptions = [
 export default class ListingsFilterForm extends Component {
   state = { active: false };
 
-  handleClick = () => {
-    console.log('clicked');
-    // this.setState(prevState => ({ active: prevState.active!}))
-    // if (this.props.filters.sort === 'priceSortAs') {
-    //   this.setState({ active: true });
-    //   console.log('should be active', this.state);
-    // } else {
-    //   this.setState({ active: false });
-    //   console.log('should not be active', this.state);
-    // }
-    // this.props.setFilters('priceSortAsc');
+  handleClick = (e, { name }) => {
+    this.setState({ active: !this.state.active });
+    if (!this.state.active) {
+      this.props.setSort(name);
+    } else {
+      this.props.setSort('none');
+    }
   };
 
   render() {
@@ -44,9 +40,28 @@ export default class ListingsFilterForm extends Component {
       <div>
         <Form>
           <Form.Group widths="equal">
-            <Button toggle active={active} onClick={this.handleClick}>
-              Sort by Price
+            <Button
+              toggle
+              name="sortByLowestPrice"
+              active={active}
+              onClick={this.handleClick}
+            >
+              Sort By Lowest Price
             </Button>
+            <Form.Input
+              name="minPrice"
+              label="Min Price"
+              placeholder="min"
+              onChange={this.props.minPriceChange}
+              value={this.props.minPrice}
+            />
+            <Form.Input
+              name="maxPrice"
+              label="Max Price"
+              placeholder="max"
+              onChange={this.props.maxPriceChange}
+              value={this.props.maxPrice}
+            />
             <Form.Select
               fluid
               label="Beds"

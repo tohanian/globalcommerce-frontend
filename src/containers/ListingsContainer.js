@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Dimmer, Loader, Image, Card, Grid } from 'semantic-ui-react';
+import { Segment, Dimmer, Loader, Card, Grid } from 'semantic-ui-react';
 
 // React Components
 import ListingCard from '../components/ListingCard';
@@ -13,7 +13,13 @@ import { listingsData } from '../seed/data';
 class ListingsContainer extends Component {
   state = {
     listings: [],
-    filters: { bedroomsFilter: '0', bathroomsFilter: '0', sort: 'none' }
+    filters: {
+      bedroomsFilter: '',
+      bathroomsFilter: '',
+      sortType: 'none'
+    },
+    minPrice: '',
+    maxPrice: ''
   };
 
   componentDidMount() {
@@ -29,22 +35,72 @@ class ListingsContainer extends Component {
     };
   };
 
-  filteredListings = () => {
-    const bedroomFilteredListings = this.state.listings.filter(
-      listing =>
-        listing.property.bedrooms >=
-        parseInt(this.state.filters.bedroomsFilter, 10)
-    );
-    const bathroomFilteredListings = bedroomFilteredListings.filter(
-      listing =>
-        listing.property.bathsFull +
-          listing.property.bathsHalf * 0.5 +
-          listing.property.bathsThreeQuarter * 0.75 >=
-        parseInt(this.state.filters.bathroomsFilter, 10)
-    );
-    const allFilteredListings = bathroomFilteredListings;
-    return allFilteredListings;
+  setSort = sortType => {
+    this.setState(prevState => {
+      prevState.filters.sortType = sortType;
+      return prevState;
+    });
   };
+
+  minPriceChange = e => {
+    if (!isNaN(parseInt(e.target.value, 10)) || e.target.value === '') {
+      this.setState({ minPrice: e.target.value });
+    }
+  };
+
+  maxPriceChange = e => {
+    if (!isNaN(parseInt(e.target.value, 10)) || e.target.value === '') {
+      this.setState({ maxPrice: e.target.value });
+    }
+  };
+
+  filteredListings = () => {
+    let copyOfListings = [...this.state.listings];
+
+    if (this.state.filters.bedroomsFilter !== '') {
+      copyOfListings = copyOfListings.filter(
+        listing =>
+          listing.property.bedrooms >=
+          parseInt(this.state.filters.bedroomsFilter, 10)
+      );
+    }
+
+    if (this.state.filters.bathroomsFilter !== '') {
+      copyOfListings = copyOfListings.filter(
+        listing =>
+          listing.property.bathsFull +
+            listing.property.bathsHalf * 0.5 +
+            listing.property.bathsThreeQuarter * 0.75 >=
+          parseInt(this.state.filters.bathroomsFilter, 10)
+      );
+    }
+
+    if (this.state.minPrice !== '') {
+      copyOfListings = copyOfListings.filter(
+        listing => listing.listPrice >= this.state.minPrice
+      );
+    }
+
+    if (this.state.maxPrice !== '') {
+      copyOfListings = copyOfListings.filter(
+        listing => listing.listPrice <= this.state.maxPrice
+      );
+    }
+
+    if (this.state.filters.sortType === 'sortByLowestPrice') {
+      copyOfListings = copyOfListings.sort(this.priceSort);
+    }
+
+    return copyOfListings;
+  };
+
+  priceSort = (a, b) => {
+    if (a.listPrice < b.listPrice) return -1;
+    if (a.listPrice > b.listPrice) return 1;
+    return 0;
+  };
+
+  // objs.sort(compare);
 
   listingsContentIfLoaded = () => {
     if (this.state.listings.length !== 0) {
@@ -64,7 +120,6 @@ class ListingsContainer extends Component {
             <Dimmer active inverted>
               <Loader size="medium">Loading</Loader>
             </Dimmer>
-            <Image src="/assets/images/wireframe/paragraph.png" />
           </Segment>
         </div>
       );
@@ -98,6 +153,11 @@ class ListingsContainer extends Component {
           <ListingsFilterForm
             filters={this.state.filters}
             setFilters={this.setFilters}
+            setSort={this.setSort}
+            minPriceChange={this.minPriceChange}
+            minPrice={this.state.minPrice}
+            maxPriceChange={this.maxPriceChange}
+            maxPrice={this.state.maxPrice}
           />
         </div>
         <Grid stackable>
