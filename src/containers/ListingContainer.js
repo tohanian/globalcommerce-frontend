@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
-//import { API_URL } from '../enviroment';
+import { GOOGLE_MAPS_API_KEY } from '../secrets/apikeys';
 
 // React Components
 import { Segment, Dimmer, Loader, Grid, List } from 'semantic-ui-react';
@@ -12,17 +12,12 @@ import ListingMarker from '../components/ListingMarker';
 // Fake test data
 import { listingsData } from '../seed/data';
 
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBDkfyTm0iB8eTWu1rCj_N5YqCMOvYJroQ';
-
 export default class ListingContainer extends Component {
   state = {
     listing: null
   };
 
   componentDidMount() {
-    // fetch(API_URL + '/agents')
-    //   .then(response => response.json())
-    //   .then(agents => this.setState({ agents }));
     this.setState({
       listing: listingsData.find(l => l.mlsId.toString() === this.props.mlsId)
     });

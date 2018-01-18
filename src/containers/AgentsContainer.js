@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { API_URL } from '../enviroment';
 import { Segment, Dimmer, Loader, Image, Item } from 'semantic-ui-react';
 import Agent from '../components/Agent';
 
@@ -10,9 +9,6 @@ export default class AgentsContainer extends Component {
   state = { agents: [] };
 
   componentDidMount() {
-    // fetch(API_URL + '/agents')
-    //   .then(response => response.json())
-    //   .then(agents => this.setState({ agents }));
     this.setState({ agents: agentsData });
   }
 

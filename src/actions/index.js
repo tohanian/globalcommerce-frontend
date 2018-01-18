@@ -1,13 +1,11 @@
 // import { CREATE_USER } from './types';
-import { API_URL } from '../enviroment';
-
-const SIGNUP_URL = API_URL + '/signup';
+import { API_URL, SIGNUP_API_URL } from '../secrets/apikeys';
 
 export function createUser(newUser) {
   // console.log(newUser);
   // debugger;
   return dispatch => {
-    fetch(SIGNUP_URL, {
+    fetch(SIGNUP_API_URL, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { GOOGLE_MAPS_API_KEY } from '../secrets/apikeys';
+
+// React Components
 import GoogleMapReact from 'google-map-react';
-
 import ListingMarker from './ListingMarker';
-
-const GOOGLE_MAPS_API_KEY = 'AIzaSyBDkfyTm0iB8eTWu1rCj_N5YqCMOvYJroQ';
 
 export default class ListingsMap extends Component {
   markers = () =>

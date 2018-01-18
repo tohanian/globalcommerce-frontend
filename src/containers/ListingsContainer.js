@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { API_URL } from '../enviroment';
 import { Segment, Dimmer, Loader, Image, Card, Grid } from 'semantic-ui-react';
 
 // React Components
@@ -18,9 +17,6 @@ class ListingsContainer extends Component {
   };
 
   componentDidMount() {
-    // fetch(API_URL + '/agents')
-    //   .then(response => response.json())
-    //   .then(agents => this.setState({ agents }));
     this.setState({ listings: listingsData });
   }
 
