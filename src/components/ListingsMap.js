@@ -16,10 +16,6 @@ export default class ListingsMap extends Component {
     ));
 
   render() {
-    console.log(
-      'THIS IS THE MAP COMP',
-      process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-    );
     return (
       <GoogleMapReact
         bootstrapURLKeys={{

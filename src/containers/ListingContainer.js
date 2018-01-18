@@ -142,21 +142,15 @@ export default class ListingContainer extends Component {
             </Segment>
           </Grid.Column>
           <Grid.Column width={10} textAlign="center">
-            <ImageGallery items={images} />
+            <ImageGallery
+              items={images}
+              thumbnailPosition="right"
+              showPlayButton={false}
+            />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column width={5} textAlign="center">
-            {/* <div style={{ height: '500px', width: '100vh' }}>
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY, language: 'en' }}
-                center={{ lat: l.geo.lat, lng: l.geo.lng }}
-                zoom={15}
-              >
-                <ListingMarker lat={l.geo.lat} lng={l.geo.lng} />
-              </GoogleMapReact>
-            </div> */}
-          </Grid.Column>
+          <Grid.Column width={5} textAlign="center" />
           <Grid.Column width={11} />
         </Grid.Row>
       </Grid>
