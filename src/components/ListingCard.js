@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, Image, Icon } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 
 export default class ListingCard extends Component {
   convertToDollarAmount = number => {
@@ -16,36 +15,35 @@ export default class ListingCard extends Component {
   render() {
     const l = this.props.listing;
     return (
-      <Link to={`/listings/${l.mlsId}`}>
-        <Card link color="blue">
-          <Image src={l.photos[0]} />
-          <Card.Content>
-            <Card.Header>
-              {this.convertToDollarAmount(l.listPrice)}
-              <Icon name="heart outline" />
-            </Card.Header>
-            <Card.Meta>
-              <div>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
-                l.property.bathsHalf * 0.5 +
-                l.property.bathsThreeQuarter * 0.75} ba ● ${
-                l.property.area
-              } sq.ft`}</div>
-            </Card.Meta>
-            <Card.Description>
-              {`${l.address.streetNumberText} ${l.address.streetName.replace(
-                /\w\S*/g,
-                txt => {
-                  return (
-                    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                  );
-                }
-              )}`}
-              <br />
-              <small>{`${l.address.city}, ${l.address.state}`}</small>
-            </Card.Description>
-          </Card.Content>
-        </Card>
-      </Link>
+      <Card link href={`/listings/${l.mlsId}`} color="blue" centered>
+        <Image src={l.photos[0]} />
+        <Card.Content>
+          <Card.Header>
+            {this.convertToDollarAmount(l.listPrice)}
+            <Icon name="heart outline" />
+          </Card.Header>
+          <Card.Meta>
+            <div>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
+              l.property.bathsHalf * 0.5 +
+              l.property.bathsThreeQuarter * 0.75} ba ● ${
+              l.property.area
+            } sq.ft`}</div>
+          </Card.Meta>
+          <Card.Description>
+            {`${l.address.streetNumberText} ${l.address.streetName.replace(
+              /\w\S*/g,
+              txt => {
+                return (
+                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                );
+              }
+            )}`}
+            <br />
+            <small>{`${l.address.city}, ${l.address.state}`}</small>
+          </Card.Description>
+        </Card.Content>
+        {/* </Link> */}
+      </Card>
     );
   }
 }

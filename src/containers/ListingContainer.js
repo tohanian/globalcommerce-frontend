@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 //import { API_URL } from '../enviroment';
-import { Segment, Dimmer, Loader } from 'semantic-ui-react';
 
 // React Components
+import { Segment, Dimmer, Loader, Grid, List } from 'semantic-ui-react';
 import GoogleMapReact from 'google-map-react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -23,8 +23,6 @@ export default class ListingContainer extends Component {
     // fetch(API_URL + '/agents')
     //   .then(response => response.json())
     //   .then(agents => this.setState({ agents }));
-    // console.log(listingsData[0].mlsId);
-    // console.log(this.props.mlsId);
     this.setState({
       listing: listingsData.find(l => l.mlsId.toString() === this.props.mlsId)
     });
@@ -57,56 +55,116 @@ export default class ListingContainer extends Component {
       thumbnail: photo
     }));
 
-    // debugger;
-
     return (
-      <div>
-        <div>
-          <ImageGallery items={images} />
-        </div>
-        <div>
-          <h1>
-            {`${l.address.streetNumberText} ${l.address.streetName.replace(
-              /\w\S*/g,
-              txt => {
-                return (
-                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                );
-              }
-            )}`}
-          </h1>
-          <h3>{`${l.address.city}, ${l.address.state}`}</h3>
-          <h2>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
-            l.property.bathsHalf * 0.5 +
-            l.property.bathsThreeQuarter * 0.75} ba ● ${
-            l.property.area
-          } sq.ft`}</h2>
-          <br />
-          <h1>{this.convertToDollarAmount(l.listPrice)}</h1>
-        </div>
-        <div>
-          <h3>Property Info</h3>
-          <ul>
-            <li>Type: {l.property.type}</li>
-            <li>Year Built: {l.property.yearBuilt}</li>
-            <li>Lot Size: {l.property.lotSizeArea}</li>
-            <li>Parking: {l.property.parking.description}</li>
-            <li>Laundry: {l.property.laundryFeatures}</li>
-            <li>Stories: {l.property.stories}</li>
-            <li>Parking Spaces: {l.property.parking.spaces}</li>
-            <li>Pool: {l.property.pool}</li>
-          </ul>
-          <div style={{ height: '100vh', width: '88vh' }}>
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY, language: 'en' }}
-              center={{ lat: l.geo.lat, lng: l.geo.lng }}
-              zoom={11}
-            >
-              <ListingMarker lat={l.geo.lat} lng={l.geo.lng} />
-            </GoogleMapReact>
-          </div>
-        </div>
-      </div>
+      <Grid stackable columns={2}>
+        <Grid.Row stretched>
+          <Grid.Column width={6}>
+            <Segment color="blue" inverted>
+              <h1>
+                {`${l.address.streetNumberText} ${l.address.streetName.replace(
+                  /\w\S*/g,
+                  txt => {
+                    return (
+                      txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                    );
+                  }
+                )}`}
+              </h1>
+              <p>{`${l.address.city}, ${l.address.state}`}</p>
+              <h2>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
+                l.property.bathsHalf * 0.5 +
+                l.property.bathsThreeQuarter * 0.75} ba ● ${
+                l.property.area
+              } sq.ft`}</h2>
+              <h1>{this.convertToDollarAmount(l.listPrice)}</h1>
+            </Segment>
+            <div style={{ height: '57vh', width: '65vh' }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY, language: 'en' }}
+                center={{ lat: l.geo.lat, lng: l.geo.lng }}
+                zoom={15}
+              >
+                <ListingMarker lat={l.geo.lat} lng={l.geo.lng} />
+              </GoogleMapReact>
+            </div>
+            <Segment color="blue" inverted>
+              <h3>Property Info</h3>
+              <List>
+                <List.Item>
+                  <List.Icon name="home" size="big" />
+                  <List.Content verticalAlign="middle">
+                    Type: {l.property.type}
+                  </List.Content>
+                </List.Item>
+                <List.Item>
+                  <List.Icon name="calendar" size="big" />
+                  <List.Content verticalAlign="middle">
+                    Built in {l.property.yearBuilt}
+                  </List.Content>
+                </List.Item>
+                {(() => {
+                  if (l.property.lotSizeArea) {
+                    return (
+                      <List.Item>
+                        <List.Icon name="plus" size="big" />
+                        <List.Content>
+                          Lot Size: {l.property.lotSizeArea}
+                        </List.Content>
+                      </List.Item>
+                    );
+                  }
+                })()}
+                <List.Item>
+                  <List.Icon name="car" size="big" />
+                  <List.Content verticalAlign="middle">
+                    Parking: {l.property.parking.description} ({
+                      l.property.parking.spaces
+                    }{' '}
+                    spaces)
+                  </List.Content>
+                </List.Item>
+                <List.Item>
+                  <List.Icon name="sun" size="big" />
+                  <List.Content verticalAlign="middle">
+                    Laundry: {l.property.laundryFeatures}
+                  </List.Content>
+                </List.Item>
+                <List.Item>
+                  <List.Icon name="chevron up" size="big" />
+                  <List.Content verticalAlign="middle">
+                    {`${l.property.stories} ${
+                      l.property.stories > 1 ? 'floors' : 'floor'
+                    }`}
+                  </List.Content>
+                </List.Item>
+                <List.Item>
+                  <List.Icon name="theme" size="big" />
+                  <List.Content verticalAlign="middle">
+                    Pool: {l.property.pool}
+                  </List.Content>
+                </List.Item>
+              </List>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={10} textAlign="center">
+            <ImageGallery items={images} />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={5} textAlign="center">
+            {/* <div style={{ height: '500px', width: '100vh' }}>
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY, language: 'en' }}
+                center={{ lat: l.geo.lat, lng: l.geo.lng }}
+                zoom={15}
+              >
+                <ListingMarker lat={l.geo.lat} lng={l.geo.lng} />
+              </GoogleMapReact>
+            </div> */}
+          </Grid.Column>
+          <Grid.Column width={11} />
+        </Grid.Row>
+      </Grid>
     );
   };
 

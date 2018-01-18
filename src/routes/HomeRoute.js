@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import HomeContainer from '../containers/HomeContainer';
 
 export default class HomeRoute extends Component {
   render() {
-    return <div>we're at home</div>;
+    return <HomeContainer />;
   }
 }

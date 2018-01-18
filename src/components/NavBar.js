@@ -12,7 +12,7 @@ export default class NavBar extends Component {
 
     return (
       <div className="navbar">
-        <Menu pointing secondary>
+        <Menu pointing secondary color="blue" inverted>
           <Menu.Item
             name="home"
             as={NavLink}
@@ -46,7 +46,11 @@ export default class NavBar extends Component {
               active={activeItem === 'signup'}
             />
             <Menu.Item as={NavLink} exact to="/signin">
-              <Button primary name="sign in" onClick={this.handleItemClick}>
+              <Button
+                name="sign in"
+                color="green"
+                onClick={this.handleItemClick}
+              >
                 Sign In
               </Button>
             </Menu.Item>
