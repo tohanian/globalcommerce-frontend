@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Form, Button, Input } from 'semantic-ui-react';
 import * as actions from '../actions';
 
-class SignupForm extends Component {
+class SignUpForm extends Component {
   state = {
     email: '',
     name: '',
@@ -30,47 +30,45 @@ class SignupForm extends Component {
 
   render() {
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <Input
-            name="email"
-            type="text"
-            placeholder="Email"
-            onChange={this.handleEmailChange}
-            value={this.state.email}
-          />
-          <br />
-          <Input
-            name="name"
-            type="text"
-            placeholder="Name"
-            onChange={this.handleNameChange}
-            value={this.state.name}
-          />
-          <br />
-          <Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-          />
-          <br />
-          <Input
-            name="passwordConfirm"
-            type="password"
-            placeholder="Confirm Password"
-            onChange={this.handlePasswordConfirmChange}
-            value={this.state.passwordConfirm}
-          />
-          <br />
-          <Button name="submit" type="submit">
-            Sign Up!
-          </Button>
-        </Form>
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        <Input
+          name="email"
+          type="text"
+          placeholder="Email"
+          onChange={this.handleEmailChange}
+          value={this.state.email}
+        />
+        <br />
+        <Input
+          name="name"
+          type="text"
+          placeholder="Name"
+          onChange={this.handleNameChange}
+          value={this.state.name}
+        />
+        <br />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={this.handlePasswordChange}
+          value={this.state.password}
+        />
+        <br />
+        <Input
+          name="passwordConfirm"
+          type="password"
+          placeholder="Confirm Password"
+          onChange={this.handlePasswordConfirmChange}
+          value={this.state.passwordConfirm}
+        />
+        <br />
+        <Button name="submit" type="submit">
+          Sign Up!
+        </Button>
+      </Form>
     );
   }
 }
 
-export default connect(null, actions)(SignupForm);
+export default connect(null, actions)(SignUpForm);

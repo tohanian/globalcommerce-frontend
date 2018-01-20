@@ -106,7 +106,7 @@ class ListingsContainer extends Component {
     if (this.state.listings.length !== 0) {
       return (
         <div>
-          <Card.Group>
+          <Card.Group style={{ height: '75vh', overflowY: 'scroll' }}>
             {this.filteredListings().map((listing, index) => (
               <ListingCard key={index} listing={listing} />
             ))}
@@ -166,7 +166,12 @@ class ListingsContainer extends Component {
               {this.listingsContentIfLoaded()}
             </Grid.Column>
             <Grid.Column width={8}>
-              <div style={{ height: '100vh', width: '88vh' }}>
+              <div
+                style={{
+                  height: '73vh',
+                  width: '88vh'
+                }}
+              >
                 <ListingsMap
                   center={this.setMapCenter()}
                   zoom={10}

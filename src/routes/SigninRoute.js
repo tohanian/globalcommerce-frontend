@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SigninForm from '../components/SigninForm';
+import SignInContainer from '../containers/SignInContainer';
 
-export default class SignupRoute extends Component {
+export default class SignInRoute extends Component {
   render() {
-    return <SigninForm />;
+    return <SignInContainer />;
   }
 }

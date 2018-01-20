@@ -2,25 +2,37 @@ import React, { Component } from 'react';
 import { Card, Image, Icon } from 'semantic-ui-react';
 
 export default class ListingCard extends Component {
+  state = { liked: false };
+
   convertToDollarAmount = number => {
     const dollarAmount =
       '$' +
       number.toFixed(0).replace(/./g, function(c, i, a) {
         return i > 0 && c !== '.' && (a.length - i) % 3 === 0 ? ',' + c : c;
       });
-    // debugger;
     return dollarAmount;
+  };
+
+  handleHeartClick = e => {
+    e.preventDefault();
+    this.setState({ liked: !this.state.liked });
   };
 
   render() {
     const l = this.props.listing;
     return (
-      <Card link href={`/listings/${l.mlsId}`} color="blue" centered>
+      <Card link href={`/listings/${l.mlsId}`} color="green" centered>
         <Image src={l.photos[0]} />
         <Card.Content>
           <Card.Header>
+            {this.state.liked ? (
+              <Icon onClick={this.handleHeartClick} name="heart" color="red" />
+            ) : (
+              <Icon onClick={this.handleHeartClick} name="heart outline" />
+            )}
+
+            {`   `}
             {this.convertToDollarAmount(l.listPrice)}
-            <Icon name="heart outline" />
           </Card.Header>
           <Card.Meta>
             <div>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
@@ -42,7 +54,6 @@ export default class ListingCard extends Component {
             <small>{`${l.address.city}, ${l.address.state}`}</small>
           </Card.Description>
         </Card.Content>
-        {/* </Link> */}
       </Card>
     );
   }

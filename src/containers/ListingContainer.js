@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { GOOGLE_MAPS_API_KEY } from '../secrets/apikeys';
 
 // React Components
-import { Segment, Dimmer, Loader, Grid, List } from 'semantic-ui-react';
+import { Segment, Dimmer, Loader, Grid, List, Icon } from 'semantic-ui-react';
 import GoogleMapReact from 'google-map-react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -14,7 +14,8 @@ import { listingsData } from '../seed/data';
 
 export default class ListingContainer extends Component {
   state = {
-    listing: null
+    listing: null,
+    liked: false
   };
 
   componentDidMount() {
@@ -22,6 +23,11 @@ export default class ListingContainer extends Component {
       listing: listingsData.find(l => l.mlsId.toString() === this.props.mlsId)
     });
   }
+
+  handleHeartClick = () => {
+    console.log(this.state);
+    this.setState({ liked: !this.state.liked });
+  };
 
   convertToDollarAmount = number => {
     const dollarAmount =
@@ -55,16 +61,41 @@ export default class ListingContainer extends Component {
         <Grid.Row stretched>
           <Grid.Column width={6}>
             <Segment color="blue" inverted>
-              <h1>
-                {`${l.address.streetNumberText} ${l.address.streetName.replace(
-                  /\w\S*/g,
-                  txt => {
-                    return (
-                      txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                    );
-                  }
-                )}`}
-              </h1>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={12}>
+                    <h1>
+                      {`${
+                        l.address.streetNumberText
+                      } ${l.address.streetName.replace(/\w\S*/g, txt => {
+                        return (
+                          txt.charAt(0).toUpperCase() +
+                          txt.substr(1).toLowerCase()
+                        );
+                      })}`}
+                    </h1>
+                  </Grid.Column>
+                  <Grid.Column width={4} textAlign="center">
+                    {this.state.liked ? (
+                      <Icon
+                        name="heart"
+                        color="red"
+                        size="huge"
+                        onClick={this.handleHeartClick}
+                      />
+                    ) : (
+                      <Icon
+                        name="heart"
+                        color="red"
+                        inverted
+                        size="huge"
+                        onClick={this.handleHeartClick}
+                      />
+                    )}
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
               <p>{`${l.address.city}, ${l.address.state}`}</p>
               <h2>{`${l.property.bedrooms} bd / ${l.property.bathsFull +
                 l.property.bathsHalf * 0.5 +

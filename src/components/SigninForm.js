@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Input } from 'semantic-ui-react';
 import * as actions from '../actions';
 
-class SigninForm extends Component {
+class SignInForm extends Component {
   state = {
     email: '',
     password: ''
@@ -15,7 +15,7 @@ class SigninForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log('submitted a sign in');
+    this.props.signInUser(this.state);
     this.setState({
       email: '',
       password: ''
@@ -54,4 +54,4 @@ class SigninForm extends Component {
   }
 }
 
-export default connect(null, actions)(SigninForm);
+export default connect(null, actions)(SignInForm);

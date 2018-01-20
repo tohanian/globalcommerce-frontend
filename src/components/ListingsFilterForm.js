@@ -52,6 +52,8 @@ export default class ListingsFilterForm extends Component {
               name="minPrice"
               label="Min Price"
               placeholder="min"
+              icon="dollar"
+              iconPosition="left"
               onChange={this.props.minPriceChange}
               value={this.props.minPrice}
             />
@@ -59,6 +61,8 @@ export default class ListingsFilterForm extends Component {
               name="maxPrice"
               label="Max Price"
               placeholder="max"
+              icon="dollar"
+              iconPosition="left"
               onChange={this.props.maxPriceChange}
               value={this.props.maxPrice}
             />
