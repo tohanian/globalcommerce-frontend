@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Segment, Dimmer, Loader, Card, Grid } from 'semantic-ui-react';
 
 // React Components
+import { Segment, Dimmer, Loader, Card, Grid } from 'semantic-ui-react';
 import ListingCard from '../components/ListingCard';
 import ListingsFilterForm from '../components/ListingsFilterForm';
 import ListingsMap from '../components/ListingsMap';

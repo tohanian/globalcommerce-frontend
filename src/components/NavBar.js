@@ -51,7 +51,7 @@ export default class NavBar extends Component {
                 color="green"
                 onClick={this.handleItemClick}
               >
-                Sign In
+                Log In
               </Button>
             </Menu.Item>
           </Menu.Menu>

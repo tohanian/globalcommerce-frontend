@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Form, Button, Input } from 'semantic-ui-react';
 import * as actions from '../actions';
+
+// React Components
+import { Form } from 'semantic-ui-react';
 
 class SignInForm extends Component {
   state = {
@@ -17,35 +19,38 @@ class SignInForm extends Component {
     e.preventDefault();
     this.props.signInUser(this.state);
     this.setState({
-      email: '',
       password: ''
     });
   };
 
   render() {
+    if (this.props.loggedIn) {
+      this.props.history.push('/');
+    }
+
     return (
       <div>
+        <h1>Sign in to save liked listings.</h1>
         <Form onSubmit={this.handleSubmit}>
-          <Input
+          <Form.Input
             name="email"
             type="text"
             placeholder="Email"
             onChange={this.handleEmailChange}
             value={this.state.email}
           />
-          <br />
-          <Input
+          <Form.Input
             name="password"
             type="password"
             placeholder="Password"
             onChange={this.handlePasswordChange}
             value={this.state.password}
           />
-          <br />
-          <Button name="submit" type="submit">
-            Sign Up!
-          </Button>
+          <Form.Button name="submit" type="submit">
+            Log In!
+          </Form.Button>
         </Form>
+        <br />
         <p>
           Don't have an account? <Link to="/signup"> Sign up.</Link>
         </p>
@@ -54,4 +59,11 @@ class SignInForm extends Component {
   }
 }
 
-export default connect(null, actions)(SignInForm);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.user.loggedIn
+  };
+};
+
+// export default withRouter(connect(mapStateToProps, null)(AppContainer));
+export default connect(mapStateToProps, actions)(SignInForm);

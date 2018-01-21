@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Image, Icon } from 'semantic-ui-react';
+import { Card, Image, Icon, Reveal } from 'semantic-ui-react';
 
 export default class ListingCard extends Component {
   state = { liked: false };
@@ -22,7 +22,23 @@ export default class ListingCard extends Component {
     const l = this.props.listing;
     return (
       <Card link href={`/listings/${l.mlsId}`} color="green" centered>
-        <Image src={l.photos[0]} />
+        <div
+          style={{
+            width: '100hh',
+            height: '180px',
+            overflow: 'hidden'
+          }}
+        >
+          <Reveal animated="fade">
+            <Reveal.Content visible>
+              <Image src={l.photos[0]} />
+            </Reveal.Content>
+            <Reveal.Content hidden>
+              <Image src={l.photos[1]} />
+            </Reveal.Content>
+          </Reveal>
+        </div>
+
         <Card.Content>
           <Card.Header>
             {this.state.liked ? (

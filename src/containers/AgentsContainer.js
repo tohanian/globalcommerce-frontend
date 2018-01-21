@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Segment, Dimmer, Loader, Image, Item } from 'semantic-ui-react';
+
+// React Components
+import { Segment, Dimmer, Loader, Item, Grid } from 'semantic-ui-react';
 import Agent from '../components/Agent';
 
 // Fake test data
@@ -13,7 +15,6 @@ export default class AgentsContainer extends Component {
   }
 
   agentsContentIfLoaded = () => {
-    // console.log(this.state);
     if (this.state.agents.length !== 0) {
       return (
         <Item.Group>
@@ -29,7 +30,6 @@ export default class AgentsContainer extends Component {
             <Dimmer active inverted>
               <Loader size="medium">Loading</Loader>
             </Dimmer>
-            <Image src="/assets/images/wireframe/paragraph.png" />
           </Segment>
         </div>
       );
@@ -37,6 +37,16 @@ export default class AgentsContainer extends Component {
   };
 
   render() {
-    return <div>{this.agentsContentIfLoaded()}</div>;
+    return (
+      <div>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={4} />
+            <Grid.Column width={8}>{this.agentsContentIfLoaded()}</Grid.Column>
+            <Grid.Row width={4} />
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
   }
 }
