@@ -9,6 +9,9 @@ export default class SignInContainer extends Component {
     return (
       <div>
         <Grid textAlign="center">
+          <Grid.Row>
+            <h1>Sign up to save liked listings.</h1>
+          </Grid.Row>
           <Grid.Row
             columns={1}
             verticalAlign="middle"

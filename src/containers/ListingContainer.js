@@ -60,7 +60,7 @@ export default class ListingContainer extends Component {
       <Grid stackable columns={2}>
         <Grid.Row stretched>
           <Grid.Column width={6}>
-            <Segment color="blue" inverted>
+            <Segment color="green">
               <Grid>
                 <Grid.Row>
                   <Grid.Column width={12}>
@@ -113,7 +113,7 @@ export default class ListingContainer extends Component {
                 <ListingMarker lat={l.geo.lat} lng={l.geo.lng} />
               </GoogleMapReact>
             </div>
-            <Segment color="blue" inverted>
+            <Segment color="green">
               <h3>Property Info</h3>
               <List>
                 <List.Item>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // React Components
-import { Form, Button, Icon } from 'semantic-ui-react';
+import { Form, Grid, Icon } from 'semantic-ui-react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
@@ -33,18 +33,26 @@ export default class HomeSearchForm extends Component {
     };
 
     return (
-      <Form onSubmit={this.handleFormSubmit}>
-        <Form.Group widths="equal">
-          <PlacesAutocomplete
-            className="ui input"
-            inputProps={inputProps}
-            onError={this.onError}
-          />
-          <Button type="submit">
-            <Icon name="search" />Search
-          </Button>
-        </Form.Group>
-      </Form>
+      <Grid>
+        <Form onSubmit={this.handleFormSubmit}>
+          <Form.Group widths="equal">
+            <Grid.Row>
+              <Grid.Column>
+                <PlacesAutocomplete
+                  className="ui input"
+                  inputProps={inputProps}
+                  onError={this.onError}
+                />
+              </Grid.Column>
+              <Grid.Column>
+                <Form.Button type="submit">
+                  <Icon name="search" />Search
+                </Form.Button>
+              </Grid.Column>
+            </Grid.Row>
+          </Form.Group>
+        </Form>
+      </Grid>
     );
   }
 }

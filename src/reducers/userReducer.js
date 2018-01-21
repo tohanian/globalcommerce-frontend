@@ -1,7 +1,4 @@
-const userReducer = (
-  state = { loggedIn: false, user: null, auth_error: null },
-  action
-) => {
+const userReducer = (state = { auth_error: null }, action) => {
   switch (action.type) {
     case 'SET_USER':
       return {

@@ -9,6 +9,7 @@ export default class ListingsMap extends Component {
     this.props.listings.map(listing => (
       <ListingMarker
         key={listing.mlsId}
+        mlsId={listing.mlsId}
         lat={listing.geo.lat}
         lng={listing.geo.lng}
       />

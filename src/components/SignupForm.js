@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Button, Input } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import * as actions from '../actions';
 
 class SignUpForm extends Component {
@@ -31,41 +31,37 @@ class SignUpForm extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Input
+        <Form.Input
           name="email"
           type="text"
           placeholder="Email"
           onChange={this.handleEmailChange}
           value={this.state.email}
         />
-        <br />
-        <Input
+        <Form.Input
           name="name"
           type="text"
           placeholder="Name"
           onChange={this.handleNameChange}
           value={this.state.name}
         />
-        <br />
-        <Input
+        <Form.Input
           name="password"
           type="password"
           placeholder="Password"
           onChange={this.handlePasswordChange}
           value={this.state.password}
         />
-        <br />
-        <Input
+        <Form.Input
           name="passwordConfirm"
           type="password"
           placeholder="Confirm Password"
           onChange={this.handlePasswordConfirmChange}
           value={this.state.passwordConfirm}
         />
-        <br />
-        <Button name="submit" type="submit">
+        <Form.Button name="submit" type="submit">
           Sign Up!
-        </Button>
+        </Form.Button>
       </Form>
     );
   }
