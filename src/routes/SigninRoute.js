@@ -3,6 +3,6 @@ import SignInContainer from '../containers/SignInContainer';
 
 export default class SignInRoute extends Component {
   render() {
-    return <SignInContainer {...this.props} />;
+    return <SignInContainer />;
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 // React Components
 import { Menu, Button, Dropdown, Icon } from 'semantic-ui-react';
@@ -9,6 +10,10 @@ class NavBar extends Component {
   state = { activeItem: '' };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+  handleLogout = () => {
+    this.props.logoutUser();
+  };
 
   render() {
     const { activeItem } = this.state;
@@ -51,7 +56,7 @@ class NavBar extends Component {
                     <Icon name="heart" />Liked Listings
                   </Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item>
+                  <Dropdown.Item onClick={this.handleLogout}>
                     <Icon name="log out" />Log Out
                   </Dropdown.Item>
                 </Dropdown.Menu>
@@ -90,4 +95,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, null)(NavBar);
+export default connect(mapStateToProps, actions)(NavBar);

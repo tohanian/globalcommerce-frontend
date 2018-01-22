@@ -48,3 +48,8 @@ export function setUser(userData) {
 export function authError(error) {
   return { type: 'AUTH_ERROR', error: error };
 }
+
+export function logoutUser() {
+  localStorage.removeItem('token');
+  return { type: 'LOGOUT_USER' };
+}

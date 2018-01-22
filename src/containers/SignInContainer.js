@@ -19,7 +19,7 @@ class SignInContainer extends Component {
             )}
           </Grid.Row>
           <Grid.Row columns={1}>
-            <SignInForm {...this.props} />
+            <SignInForm />
           </Grid.Row>
         </Grid>
       </div>

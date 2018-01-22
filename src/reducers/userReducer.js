@@ -1,4 +1,4 @@
-const userReducer = (state = { auth_error: null }, action) => {
+const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':
       return {
@@ -11,6 +11,12 @@ const userReducer = (state = { auth_error: null }, action) => {
         loggedIn: false,
         user: null,
         auth_error: action.error
+      };
+    case 'LOGOUT_USER':
+      return {
+        loggedIn: false,
+        user: null,
+        auth_error: null
       };
     default:
       // console.warn('userReducer has reached a default action.');

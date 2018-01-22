@@ -20,13 +20,7 @@ class AppContainer extends Component {
           <Grid.Column>
             <Switch>
               <Route exact path="/" component={HomeRoute} />
-              <Route
-                exact
-                path="/signin"
-                render={routerProps => {
-                  return <SignInRoute {...routerProps} />;
-                }}
-              />
+              <Route exact path="/signin" component={SignInRoute} />
               <Route exact path="/signup" component={SignUpRoute} />
               <Route exact path="/agents" component={AgentsRoute} />
               <Route exact path="/listings" component={ListingsRoute} />

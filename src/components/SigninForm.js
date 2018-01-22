@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as actions from '../actions';
 
 // React Components
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { Form } from 'semantic-ui-react';
 
 class SignInForm extends Component {
@@ -25,37 +25,37 @@ class SignInForm extends Component {
 
   render() {
     if (this.props.loggedIn) {
-      this.props.history.push('/');
+      return <Redirect to="/user/dashboard" />;
+    } else {
+      return (
+        <div>
+          <h1>Sign in to save liked listings.</h1>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Input
+              name="email"
+              type="text"
+              placeholder="Email"
+              onChange={this.handleEmailChange}
+              value={this.state.email}
+            />
+            <Form.Input
+              name="password"
+              type="password"
+              placeholder="Password"
+              onChange={this.handlePasswordChange}
+              value={this.state.password}
+            />
+            <Form.Button name="submit" type="submit">
+              Log In!
+            </Form.Button>
+          </Form>
+          <br />
+          <p>
+            Don't have an account? <Link to="/signup"> Sign up.</Link>
+          </p>
+        </div>
+      );
     }
-
-    return (
-      <div>
-        <h1>Sign in to save liked listings.</h1>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Input
-            name="email"
-            type="text"
-            placeholder="Email"
-            onChange={this.handleEmailChange}
-            value={this.state.email}
-          />
-          <Form.Input
-            name="password"
-            type="password"
-            placeholder="Password"
-            onChange={this.handlePasswordChange}
-            value={this.state.password}
-          />
-          <Form.Button name="submit" type="submit">
-            Log In!
-          </Form.Button>
-        </Form>
-        <br />
-        <p>
-          Don't have an account? <Link to="/signup"> Sign up.</Link>
-        </p>
-      </div>
-    );
   }
 }
 
@@ -65,5 +65,4 @@ const mapStateToProps = state => {
   };
 };
 
-// export default withRouter(connect(mapStateToProps, null)(AppContainer));
-export default connect(mapStateToProps, actions)(SignInForm);
+export default withRouter(connect(mapStateToProps, actions)(SignInForm));
