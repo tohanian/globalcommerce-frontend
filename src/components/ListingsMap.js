@@ -10,6 +10,14 @@ export default class ListingsMap extends Component {
       <ListingMarker
         key={listing.mlsId}
         mlsId={listing.mlsId}
+        popupHeader={listing.listPrice}
+        popupImage={listing.photos[0]}
+        popupContent={`${listing.property.bedrooms} bd / ${listing.property
+          .bathsFull +
+          listing.property.bathsHalf * 0.5 +
+          listing.property.bathsThreeQuarter * 0.75} ba ● ${
+          listing.property.area
+        } sq.ft`}
         lat={listing.geo.lat}
         lng={listing.geo.lng}
       />

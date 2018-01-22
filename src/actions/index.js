@@ -41,6 +41,13 @@ export function signInUser(userData) {
   };
 }
 
+export function getUser() {
+  return dispatch => {
+    fetch();
+  };
+  // try to fetch the authorize user endpoint
+}
+
 export function setUser(userData) {
   return { type: 'SET_USER', payload: userData };
 }
