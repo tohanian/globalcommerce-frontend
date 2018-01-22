@@ -1,4 +1,8 @@
-import { SIGNUP_API_URL, SIGNIN_API_URL } from '../secrets/apikeys';
+import {
+  SIGNUP_API_URL,
+  SIGNIN_API_URL,
+  AUTH_API_URL
+} from '../secrets/apikeys';
 
 const headers = {
   Accept: 'application/json',
@@ -42,10 +46,18 @@ export function signInUser(userData) {
 }
 
 export function getUser() {
+  console.log(
+    'headers',
+    Object.assign({}, headers, { Authorization: localStorage.token })
+  );
   return dispatch => {
-    fetch();
+    fetch(AUTH_API_URL, {
+      METHOD: 'GET',
+      headers: Object.assign({}, headers, { Authorization: localStorage.token })
+    })
+      .then(response => response.json())
+      .then(userData => dispatch(setUser(userData)));
   };
-  // try to fetch the authorize user endpoint
 }
 
 export function setUser(userData) {

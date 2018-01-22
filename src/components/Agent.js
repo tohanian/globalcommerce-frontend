@@ -3,7 +3,6 @@ import { Item, Label } from 'semantic-ui-react';
 
 export default class Agent extends Component {
   render() {
-    console.log(this.props.agent);
     return (
       <Item>
         <Item.Image

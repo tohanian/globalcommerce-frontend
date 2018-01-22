@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+// import WithAuth from '../components/WithAuth';
+
 // React Components
 import { Grid, Segment } from 'semantic-ui-react';
 
@@ -15,7 +17,6 @@ class DashboardContainer extends Component {
   };
 
   render() {
-    console.log(this.props);
     if (this.props.currentUser) {
       return (
         <div>
@@ -37,13 +38,12 @@ class DashboardContainer extends Component {
         </div>
       );
     } else {
-      return <p>log in</p>;
+      return null;
     }
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     currentUser: state.user.user
   };

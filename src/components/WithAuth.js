@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 const WithAuth = WrappedComponent => {
-  return class {
+  class AuthComponent extends Component {
     componentDidMount() {
-      if (!this.props.loggedIn && localStorage.getItem('token')) {
-        // Redux action to fetch user
+      if (localStorage.getItem('token')) {
+        this.props.getUser();
       } else {
         this.props.history.push('/signin');
       }
@@ -13,11 +15,9 @@ const WithAuth = WrappedComponent => {
     render() {
       return <WrappedComponent {...this.props} />;
     }
-  };
+  }
+
+  return connect(null, actions)(AuthComponent);
 };
 
-const mapStateToProps = state => {
-  return { loggedIn: state.user.loggedIn };
-};
-
-export default connect(mapStateToProps, null)(WithAuth);
+export default WithAuth;

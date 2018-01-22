@@ -16,8 +16,6 @@ export default class ListingMarker extends Component {
           return i > 0 && c !== '.' && (a.length - i) % 3 === 0 ? ',' + c : c;
         });
       return dollarAmount;
-    } else {
-      return null;
     }
   };
 
@@ -60,10 +58,3 @@ export default class ListingMarker extends Component {
     }
   }
 }
-
-// const PopupExample = () => (
-//   <Popup
-//     trigger={<Button icon='add' />}
-//     content='Add users to your feed'
-//   />
-// )

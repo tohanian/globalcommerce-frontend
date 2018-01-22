@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// Routes
+// React Components
 import { Grid } from 'semantic-ui-react';
+
+// Routes
 import HomeRoute from '../routes/HomeRoute';
 import SignUpRoute from '../routes/SignUpRoute';
 import SignInRoute from '../routes/SignInRoute';

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import DashboardContainer from '../containers/DashboardContainer';
+import WithAuth from '../components/WithAuth';
 
-export default class DashboardRoute extends Component {
+class DashboardRoute extends Component {
   render() {
     return <DashboardContainer />;
   }
 }
+
+export default WithAuth(DashboardRoute);
