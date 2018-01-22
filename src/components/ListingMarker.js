@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Icon, Popup, Image } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
-export default class ListingMarker extends Component {
+class ListingMarker extends Component {
   state = {
     color: 'blue',
     clicked: false
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.hoverListingCard !== this.props.hoverListingCard &&
+      nextProps.hoverListingCard === nextProps.mlsId
+    ) {
+      this.setState({ color: 'red' });
+    } else {
+      this.setState({ color: 'blue' });
+    }
+  }
 
   convertToDollarAmount = number => {
     if (number) {
@@ -58,3 +70,11 @@ export default class ListingMarker extends Component {
     }
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    hoverListingCard: state.listing.hoverListingCard
+  };
+};
+
+export default connect(mapStateToProps)(ListingMarker);

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Card, Image, Icon, Reveal } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-export default class ListingCard extends Component {
+class ListingCard extends Component {
   state = { liked: false };
 
   convertToDollarAmount = number => {
@@ -18,10 +20,22 @@ export default class ListingCard extends Component {
     this.setState({ liked: !this.state.liked });
   };
 
+  handleMouseOver = () =>
+    this.props.setHoverListingCard(this.props.listing.mlsId);
+
+  handleMouseOut = () => this.props.unsetHoverListingCard();
+
   render() {
     const l = this.props.listing;
     return (
-      <Card link href={`/listings/${l.mlsId}`} color="green" centered>
+      <Card
+        link
+        href={`/listings/${l.mlsId}`}
+        color="green"
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}
+        centered
+      >
         <div
           style={{
             width: '100hh',
@@ -74,3 +88,11 @@ export default class ListingCard extends Component {
     );
   }
 }
+
+// const mapStateToProps = state => {
+//   return {
+//     this.props.listing
+//   }
+// }
+
+export default connect(null, actions)(ListingCard);

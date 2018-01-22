@@ -2,15 +2,15 @@
 
 const listingReducer = (
   state = {
-    /* default states here */
+    hoverListingCard: null
   },
   action
 ) => {
   switch (action.type) {
-    // case CREATE_USER:
-    //   return state;
-    // case SET_USER:
-    //   return { ...state, loggedIn: true };
+    case 'SET_HOVER_LISTING_CARD':
+      return { ...state, hoverListingCard: action.mlsId };
+    case 'UNSET_HOVER_LISTING_CARD':
+      return { ...state, hoverListingCard: null };
     default:
       return state;
   }

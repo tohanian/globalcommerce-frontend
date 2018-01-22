@@ -8,7 +8,9 @@ const WithAuth = WrappedComponent => {
       if (localStorage.getItem('token')) {
         this.props.getUser();
       } else {
-        this.props.history.push('/signin');
+        if (this.props.history) {
+          this.props.history.push('/signin');
+        }
       }
     }
 

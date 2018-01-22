@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 // React Components
 import { Menu, Button, Dropdown, Icon } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
+import WithAuth from './WithAuth';
 
 class NavBar extends Component {
   state = { activeItem: '' };
@@ -95,4 +96,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(NavBar);
+export default WithAuth(connect(mapStateToProps, actions)(NavBar));

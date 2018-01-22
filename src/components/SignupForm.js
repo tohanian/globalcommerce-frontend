@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react';
 import * as actions from '../actions';
+import { Redirect } from 'react-router-dom';
 
 class SignUpForm extends Component {
   state = {
@@ -29,42 +30,52 @@ class SignUpForm extends Component {
   };
 
   render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Input
-          name="email"
-          type="text"
-          placeholder="Email"
-          onChange={this.handleEmailChange}
-          value={this.state.email}
-        />
-        <Form.Input
-          name="name"
-          type="text"
-          placeholder="Name"
-          onChange={this.handleNameChange}
-          value={this.state.name}
-        />
-        <Form.Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={this.handlePasswordChange}
-          value={this.state.password}
-        />
-        <Form.Input
-          name="passwordConfirm"
-          type="password"
-          placeholder="Confirm Password"
-          onChange={this.handlePasswordConfirmChange}
-          value={this.state.passwordConfirm}
-        />
-        <Form.Button name="submit" type="submit">
-          Sign Up!
-        </Form.Button>
-      </Form>
-    );
+    if (this.props.loggedIn) {
+      return <Redirect to="/user/dashboard" />;
+    } else {
+      return (
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input
+            name="email"
+            type="text"
+            placeholder="Email"
+            onChange={this.handleEmailChange}
+            value={this.state.email}
+          />
+          <Form.Input
+            name="name"
+            type="text"
+            placeholder="Name"
+            onChange={this.handleNameChange}
+            value={this.state.name}
+          />
+          <Form.Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={this.handlePasswordChange}
+            value={this.state.password}
+          />
+          <Form.Input
+            name="passwordConfirm"
+            type="password"
+            placeholder="Confirm Password"
+            onChange={this.handlePasswordConfirmChange}
+            value={this.state.passwordConfirm}
+          />
+          <Form.Button name="submit" type="submit">
+            Sign Up!
+          </Form.Button>
+        </Form>
+      );
+    }
   }
 }
 
-export default connect(null, actions)(SignUpForm);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.user.loggedIn
+  };
+};
+
+export default connect(mapStateToProps, actions)(SignUpForm);

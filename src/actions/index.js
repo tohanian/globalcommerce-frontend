@@ -72,3 +72,11 @@ export function logoutUser() {
   localStorage.removeItem('token');
   return { type: 'LOGOUT_USER' };
 }
+
+export function setHoverListingCard(mlsId) {
+  return { type: 'SET_HOVER_LISTING_CARD', mlsId: mlsId };
+}
+
+export function unsetHoverListingCard() {
+  return { type: 'UNSET_HOVER_LISTING_CARD' };
+}
