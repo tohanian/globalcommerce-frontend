@@ -15,9 +15,15 @@ class ListingCard extends Component {
     return dollarAmount;
   };
 
-  handleHeartClick = e => {
+  addLike = e => {
     e.preventDefault();
-    this.setState({ liked: !this.state.liked });
+    this.props.saveLike(this.props.currentUser.id, this.props.listing.mlsId);
+    this.setState({ liked: true });
+  };
+
+  deleteLike = e => {
+    e.preventDefault();
+    this.setState({ liked: false });
   };
 
   handleMouseOver = () =>
@@ -56,9 +62,9 @@ class ListingCard extends Component {
         <Card.Content>
           <Card.Header>
             {this.state.liked ? (
-              <Icon onClick={this.handleHeartClick} name="heart" color="red" />
+              <Icon onClick={this.deleteLike} name="heart" color="red" />
             ) : (
-              <Icon onClick={this.handleHeartClick} name="heart outline" />
+              <Icon onClick={this.addLike} name="heart outline" />
             )}
 
             {`   `}
@@ -89,10 +95,10 @@ class ListingCard extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     this.props.listing
-//   }
-// }
+const mapStateToProps = state => {
+  return {
+    currentUser: state.user.user
+  };
+};
 
-export default connect(null, actions)(ListingCard);
+export default connect(mapStateToProps, actions)(ListingCard);

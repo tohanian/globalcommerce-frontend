@@ -1,13 +1,18 @@
 import {
   SIGNUP_API_URL,
   SIGNIN_API_URL,
-  AUTH_API_URL
+  AUTH_API_URL,
+  LIKES_API_URL
 } from '../secrets/apikeys';
 
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json'
 };
+
+const authHeaders = Object.assign({}, headers, {
+  Authorization: localStorage.token
+});
 
 export function createUser(newUser) {
   return dispatch => {
@@ -46,14 +51,10 @@ export function signInUser(userData) {
 }
 
 export function getUser() {
-  console.log(
-    'headers',
-    Object.assign({}, headers, { Authorization: localStorage.token })
-  );
   return dispatch => {
     fetch(AUTH_API_URL, {
       METHOD: 'GET',
-      headers: Object.assign({}, headers, { Authorization: localStorage.token })
+      headers: authHeaders
     })
       .then(response => response.json())
       .then(userData => dispatch(setUser(userData)));
@@ -79,4 +80,18 @@ export function setHoverListingCard(mlsId) {
 
 export function unsetHoverListingCard() {
   return { type: 'UNSET_HOVER_LISTING_CARD' };
+}
+
+export function saveLike(userId, mlsId) {
+  // console.log(userId);
+  // console.log(
+  //   'in save like!',
+  //   JSON.stringify({ userId: userId, mlsId: mlsId })
+  // );
+  fetch(LIKES_API_URL, {
+    method: 'POST',
+    headers: authHeaders,
+    body: JSON.stringify({ userId: userId, mlsId: mlsId })
+  }).then(console.log);
+  return { type: 'SAVE_LIKE', user_id: userId, mlsId: mlsId };
 }
