@@ -62,7 +62,9 @@ export function getUser() {
 }
 
 export function setUser(userData) {
-  return { type: 'SET_USER', payload: userData };
+  let signedInUser = { ...userData.user };
+  signedInUser.likes = [...userData.likes];
+  return { type: 'SET_USER', payload: signedInUser };
 }
 
 export function authError(error) {
@@ -82,16 +84,14 @@ export function unsetHoverListingCard() {
   return { type: 'UNSET_HOVER_LISTING_CARD' };
 }
 
-export function saveLike(userId, mlsId) {
-  // console.log(userId);
-  // console.log(
-  //   'in save like!',
-  //   JSON.stringify({ userId: userId, mlsId: mlsId })
-  // );
+export function addLike(mlsId) {
+  console.log(mlsId);
   fetch(LIKES_API_URL, {
     method: 'POST',
     headers: authHeaders,
-    body: JSON.stringify({ userId: userId, mlsId: mlsId })
-  }).then(console.log);
-  return { type: 'SAVE_LIKE', user_id: userId, mlsId: mlsId };
+    body: JSON.stringify({ mlsId: mlsId })
+  });
+  return { type: 'ADD_LIKE', mlsId: mlsId };
 }
+
+export function getUserLikes() {}

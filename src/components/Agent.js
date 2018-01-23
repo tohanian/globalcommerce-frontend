@@ -8,6 +8,7 @@ export default class Agent extends Component {
         <Item.Image
           className="agentProfilePhoto"
           src={this.props.agent.profile_photo}
+          circular
         />
         <Item.Content verticalAlign="middle">
           <Item.Header>{this.props.agent.name}</Item.Header>

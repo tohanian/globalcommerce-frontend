@@ -17,7 +17,7 @@ class ListingCard extends Component {
 
   addLike = e => {
     e.preventDefault();
-    this.props.saveLike(this.props.currentUser.id, this.props.listing.mlsId);
+    this.props.addLike(this.props.listing.mlsId);
     this.setState({ liked: true });
   };
 

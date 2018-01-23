@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 // React Components
-import { Form, Grid, Icon } from 'semantic-ui-react';
+import { Form, Button, Grid, Icon } from 'semantic-ui-react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
@@ -14,10 +14,11 @@ export default class HomeSearchForm extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    geocodeByAddress(this.state.address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
-      .catch(error => console.error('Error', error));
+    console.log(this.state.address.split(',')[0]);
+    // geocodeByAddress(this.state.address)
+    //   .then(results => getLatLng(results[0]))
+    //   .then(latLng => console.log('Success', latLng))
+    //   .catch(error => console.error('Error', error));
   };
 
   onError = (status, clearSuggestions) => {
@@ -29,30 +30,41 @@ export default class HomeSearchForm extends Component {
     const inputProps = {
       value: this.state.address,
       onChange: this.onChange,
-      placeholder: 'Search...'
+      type: 'search',
+      placeholder: 'Search listings...'
+    };
+
+    const renderSuggestion = ({ formattedSuggestion }) => (
+      <div>
+        <strong>{formattedSuggestion.mainText}</strong>{' '}
+        <small>{formattedSuggestion.secondaryText}</small>
+      </div>
+    );
+
+    var options = {
+      types: ['(regions)'],
+      componentRestrictions: { country: 'us' }
     };
 
     return (
       <Grid>
         <Form onSubmit={this.handleFormSubmit}>
-          <Form.Group widths="equal">
-            <Grid.Row>
-              <Grid.Column>
-                <PlacesAutocomplete
-                  className="ui input"
-                  inputProps={inputProps}
-                  onError={this.onError}
-                />
-              </Grid.Column>
-              <Grid.Column>
-                <Form.Button type="submit">
-                  <Icon name="search" />Search
-                </Form.Button>
-              </Grid.Column>
-            </Grid.Row>
-          </Form.Group>
+          <PlacesAutocomplete
+            inputProps={inputProps}
+            renderSuggestion={renderSuggestion}
+            options={options}
+            className="HomeSearchForm"
+            onError={this.onError}
+          />
+          <Button type="submit">
+            <Icon name="search" />Search
+          </Button>
         </Form>
       </Grid>
     );
   }
 }
+// var options = {
+//  types: ['(cities)'],
+//  componentRestrictions: {country: "us"}
+// };

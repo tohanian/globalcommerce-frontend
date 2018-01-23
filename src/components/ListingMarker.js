@@ -48,10 +48,14 @@ class ListingMarker extends Component {
   );
 
   formattedPopupContent = () => {
+    return <div>{this.props.popupContent}</div>;
+  };
+
+  formattedHeaderContent = () => {
     return (
       <div>
         <Image src={this.props.popupImage} />
-        {this.props.popupContent}
+        <h3>{this.convertToDollarAmount(this.props.popupHeader)}</h3>
       </div>
     );
   };
@@ -63,7 +67,7 @@ class ListingMarker extends Component {
       return (
         <Popup
           trigger={this.mapMarker()}
-          header={this.convertToDollarAmount(this.props.popupHeader)}
+          header={this.formattedHeaderContent()}
           content={this.formattedPopupContent()}
         />
       );
