@@ -193,7 +193,7 @@ class ListingContainer extends Component {
                 showFullscreenButton={false}
               />
               <Segment color="green" textAlign="left">
-                <p>This is a nice house.</p>
+                <p>{this.state.listing.remarks}</p>
               </Segment>
             </Grid.Row>
           </Grid.Column>
