@@ -3,6 +3,7 @@ import * as actions from '../actions';
 
 // High-Order React Components
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 // React Components
 import { Form, Button, Grid, Icon } from 'semantic-ui-react';
@@ -13,9 +14,25 @@ class HomeSearchForm extends Component {
 
   onChange = query => this.setState({ query });
 
+  encodeSearchQuery = () => {
+    console.log('Search query', this.state.query);
+    const encodedURI = encodeURIComponent(
+      this.state.query
+        .replace(', CA, United States', '')
+        .replace('CA ', '')
+        .replace(', United States', '')
+    );
+    return encodedURI;
+  };
+
   handleFormSubmit = e => {
     e.preventDefault();
-    this.props.getListings(this.state.query);
+    // const city = query.split(',')[0]
+    // this.props.getListings(this.state.query);
+    console.log(this.encodeSearchQuery());
+    this.props.history.push('/listings/search/' + this.encodeSearchQuery());
+
+    // Code below converts search query into GPS coordinates via Google Maps API
     // geocodeByAddress(this.state.query)
     //   .then(results => getLatLng(results[0]))
     //   .then(latLng => console.log('Success', latLng))
@@ -47,6 +64,7 @@ class HomeSearchForm extends Component {
       componentRestrictions: { country: 'us' }
     };
 
+    console.log(this.props);
     return (
       <Grid>
         <Form onSubmit={this.handleFormSubmit}>
@@ -66,4 +84,4 @@ class HomeSearchForm extends Component {
   }
 }
 
-export default connect(null, actions)(HomeSearchForm);
+export default withRouter(connect(null, actions)(HomeSearchForm));

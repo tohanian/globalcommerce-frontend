@@ -13,6 +13,7 @@ import AgentsRoute from '../routes/AgentsRoute';
 import ListingsRoute from '../routes/ListingsRoute';
 import ListingRoute from '../routes/ListingRoute';
 import DashboardRoute from '../routes/DashboardRoute';
+import ListingSearchRoute from '../routes/ListingSearchRoute';
 
 class AppContainer extends Component {
   render() {
@@ -25,7 +26,11 @@ class AppContainer extends Component {
               <Route exact path="/signin" component={SignInRoute} />
               <Route exact path="/signup" component={SignUpRoute} />
               <Route exact path="/agents" component={AgentsRoute} />
-              <Route exact path="/listings" component={ListingsRoute} />
+              <Route exact path="/listings/" component={ListingsRoute} />
+              <Route
+                path="/listings/search/:query"
+                component={ListingSearchRoute}
+              />
               <Route path="/listings/:mlsId" component={ListingRoute} />
               <Route path="/user/dashboard" component={DashboardRoute} />
             </Switch>

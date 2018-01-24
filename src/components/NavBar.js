@@ -26,10 +26,11 @@ class NavBar extends Component {
             <h1>homie</h1>
           </Menu.Item>
           <Menu.Item
-            name="home"
+            name="search"
             as={NavLink}
             exact
             to="/"
+            icon="search"
             active={activeItem === 'home'}
             onClick={this.handleItemClick}
           />

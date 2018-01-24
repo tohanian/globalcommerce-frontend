@@ -100,9 +100,9 @@ export function addLike(mlsId) {
 }
 
 export function getListings(query) {
-  const city = query.split(',')[0];
+  // const city = query.split(',')[0];
   return dispatch => {
-    fetch(LISTING_API_URL + `?q=${city}&limit=100&count=true`, {
+    fetch(LISTING_API_URL + `?q=${query}&limit=100&count=true`, {
       method: 'GET',
       headers: listingApiHeaders
     })
