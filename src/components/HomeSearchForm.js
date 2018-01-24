@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
+import * as actions from '../actions';
+
+// High-Order React Components
+import { connect } from 'react-redux';
 
 // React Components
 import { Form, Button, Grid, Icon } from 'semantic-ui-react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng
-} from 'react-places-autocomplete';
+import PlacesAutocomplete from 'react-places-autocomplete';
 
-export default class HomeSearchForm extends Component {
-  state = { address: '' };
+class HomeSearchForm extends Component {
+  state = { query: '' };
 
-  onChange = address => this.setState({ address });
+  onChange = query => this.setState({ query });
 
   handleFormSubmit = e => {
     e.preventDefault();
-    console.log(this.state.address.split(',')[0]);
-    // geocodeByAddress(this.state.address)
+    this.props.getListings(this.state.query);
+    // geocodeByAddress(this.state.query)
     //   .then(results => getLatLng(results[0]))
     //   .then(latLng => console.log('Success', latLng))
     //   .catch(error => console.error('Error', error));
@@ -28,7 +29,7 @@ export default class HomeSearchForm extends Component {
 
   render() {
     const inputProps = {
-      value: this.state.address,
+      value: this.state.query,
       onChange: this.onChange,
       type: 'search',
       placeholder: 'Search listings...'
@@ -64,7 +65,5 @@ export default class HomeSearchForm extends Component {
     );
   }
 }
-// var options = {
-//  types: ['(cities)'],
-//  componentRestrictions: {country: "us"}
-// };
+
+export default connect(null, actions)(HomeSearchForm);

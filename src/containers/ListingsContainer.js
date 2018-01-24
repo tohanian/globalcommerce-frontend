@@ -8,11 +8,10 @@ import ListingsFilterForm from '../components/ListingsFilterForm';
 import ListingsMap from '../components/ListingsMap';
 
 // Fake test data
-import { listingsData } from '../seed/data';
+// import { listingsData } from '../seed/data';
 
 class ListingsContainer extends Component {
   state = {
-    listings: [],
     filters: {
       bedroomsFilter: '',
       bathroomsFilter: '',
@@ -21,10 +20,6 @@ class ListingsContainer extends Component {
     minPrice: '',
     maxPrice: ''
   };
-
-  componentDidMount() {
-    this.setState({ listings: listingsData });
-  }
 
   setFilters = filterType => {
     return (e, { value }) => {
@@ -55,7 +50,7 @@ class ListingsContainer extends Component {
   };
 
   filteredListings = () => {
-    let copyOfListings = [...this.state.listings];
+    let copyOfListings = [...this.props.listings];
 
     if (this.state.filters.bedroomsFilter !== '') {
       copyOfListings = copyOfListings.filter(
@@ -103,7 +98,7 @@ class ListingsContainer extends Component {
   // objs.sort(compare);
 
   listingsContentIfLoaded = () => {
-    if (this.state.listings.length !== 0) {
+    if (this.props.listings.length !== 0) {
       return (
         <div>
           <Card.Group style={{ height: '75vh', overflowY: 'scroll' }}>
@@ -127,19 +122,19 @@ class ListingsContainer extends Component {
   };
 
   setMapCenter = () => {
-    if (this.state.listings.length !== 0) {
+    if (this.props.listings.length !== 0) {
       let sumOfLatCoordinates = 0;
       let sumOfLngCoordinates = 0;
       // debugger;
-      this.state.listings.forEach(
+      this.props.listings.forEach(
         listing => (sumOfLatCoordinates += listing.geo.lat)
       );
-      this.state.listings.forEach(
+      this.props.listings.forEach(
         listing => (sumOfLngCoordinates += listing.geo.lng)
       );
       return {
-        lat: sumOfLatCoordinates / this.state.listings.length,
-        lng: sumOfLngCoordinates / this.state.listings.length
+        lat: sumOfLatCoordinates / this.props.listings.length,
+        lng: sumOfLngCoordinates / this.props.listings.length
       };
     } else {
       return { lat: 34.047443, lng: -118.24975 };
@@ -147,6 +142,7 @@ class ListingsContainer extends Component {
   };
 
   render() {
+    console.log(this.props.listings);
     return (
       <div>
         <div>
@@ -186,8 +182,10 @@ class ListingsContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  // users: state.users
-});
+const mapStateToProps = state => {
+  return {
+    listings: state.listing.listings
+  };
+};
 
 export default connect(mapStateToProps, null)(ListingsContainer);

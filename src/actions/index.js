@@ -2,23 +2,29 @@ import {
   SIGNUP_API_URL,
   SIGNIN_API_URL,
   AUTH_API_URL,
-  LIKES_API_URL
+  LIKES_API_URL,
+  LISTING_API_URL,
+  LISTING_API_TOKEN
 } from '../secrets/apikeys';
 
-const headers = {
+const jsonHeaders = {
   Accept: 'application/json',
   'Content-Type': 'application/json'
 };
 
-const authHeaders = Object.assign({}, headers, {
+const authHeaders = Object.assign({}, jsonHeaders, {
   Authorization: localStorage.token
 });
+
+const listingApiHeaders = Object.assign({}, jsonHeaders, {
+  Authorization: `Basic ${LISTING_API_TOKEN}`
+}); // Add version number to headers
 
 export function createUser(newUser) {
   return dispatch => {
     fetch(SIGNUP_API_URL, {
       method: 'POST',
-      headers: headers,
+      headers: jsonHeaders,
       body: JSON.stringify(newUser)
     })
       .then(response => {
@@ -35,7 +41,7 @@ export function signInUser(userData) {
   return dispatch => {
     fetch(SIGNIN_API_URL, {
       method: 'POST',
-      headers: headers,
+      headers: jsonHeaders,
       body: JSON.stringify(userData)
     })
       .then(response => response.json())
@@ -85,7 +91,6 @@ export function unsetHoverListingCard() {
 }
 
 export function addLike(mlsId) {
-  console.log(mlsId);
   fetch(LIKES_API_URL, {
     method: 'POST',
     headers: authHeaders,
@@ -94,4 +99,18 @@ export function addLike(mlsId) {
   return { type: 'ADD_LIKE', mlsId: mlsId };
 }
 
-export function getUserLikes() {}
+export function getListings(query) {
+  const city = query.split(',')[0];
+  return dispatch => {
+    fetch(LISTING_API_URL + `?q=${city}&limit=100&count=true`, {
+      method: 'GET',
+      headers: listingApiHeaders
+    })
+      .then(res => res.json())
+      .then(listings => dispatch(setListings(listings)));
+  };
+}
+
+export function setListings(listings) {
+  return { type: 'SET_LISTINGS', listings: listings };
+}
