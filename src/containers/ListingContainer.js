@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import { GOOGLE_MAPS_API_KEY } from '../secrets/apikeys';
+import { LISTING_API_URL, LISTING_API_TOKEN } from '../secrets/apikeys';
+
+// High-Order React Components
+import { connect } from 'react-redux';
 
 // React Components
 import { Segment, Dimmer, Loader, Grid, List, Icon } from 'semantic-ui-react';
@@ -10,19 +13,30 @@ import 'react-image-gallery/styles/css/image-gallery.css';
 import ListingMarker from '../components/ListingMarker';
 
 // Fake test data
-import { listingsData } from '../seed/data';
+// import { listingsData } from '../seed/data';
 
-export default class ListingContainer extends Component {
+class ListingContainer extends Component {
   state = {
     listing: null,
     liked: false
   };
 
-  componentDidMount() {
-    this.setState({
-      listing: listingsData.find(l => l.mlsId.toString() === this.props.mlsId)
-    });
+  componentWillMount() {
+    this.requestListing();
   }
+
+  requestListing = () => {
+    fetch(LISTING_API_URL + '/' + this.props.mlsId, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Basic ${LISTING_API_TOKEN}`
+      }
+    })
+      .then(res => res.json())
+      .then(listing => this.setState({ listing: listing }));
+  };
 
   handleHeartClick = () => {
     console.log(this.state);
@@ -80,15 +94,13 @@ export default class ListingContainer extends Component {
                       <Icon
                         name="heart"
                         color="red"
-                        size="huge"
+                        size="big"
                         onClick={this.handleHeartClick}
                       />
                     ) : (
                       <Icon
-                        name="heart"
-                        color="red"
-                        inverted
-                        size="huge"
+                        name="heart outline"
+                        size="big"
                         onClick={this.handleHeartClick}
                       />
                     )}
@@ -173,12 +185,17 @@ export default class ListingContainer extends Component {
             </Segment>
           </Grid.Column>
           <Grid.Column width={10} textAlign="center">
-            <ImageGallery
-              items={images}
-              thumbnailPosition="right"
-              showPlayButton={false}
-              showFullscreenButton={false}
-            />
+            <Grid.Row>
+              <ImageGallery
+                items={images}
+                thumbnailPosition="right"
+                showPlayButton={false}
+                showFullscreenButton={false}
+              />
+              <Segment color="green" textAlign="left">
+                <p>This is a nice house.</p>
+              </Segment>
+            </Grid.Row>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -202,8 +219,10 @@ export default class ListingContainer extends Component {
   }
 }
 
-// const mapStateToProps = () => {
-//   return {};
-// };
-//
-// export default connect(mapStateToProps, null)(ListingContainer);
+const mapStateToProps = state => {
+  return {
+    searchedListings: state.listing.listings
+  };
+};
+
+export default connect(mapStateToProps, null)(ListingContainer);
