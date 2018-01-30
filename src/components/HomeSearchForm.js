@@ -27,9 +27,6 @@ class HomeSearchForm extends Component {
 
   handleFormSubmit = e => {
     e.preventDefault();
-    // const city = query.split(',')[0]
-    // this.props.getListings(this.state.query);
-    console.log(this.encodeSearchQuery());
     this.props.history.push('/listings/search/' + this.encodeSearchQuery());
 
     // Code below converts search query into GPS coordinates via Google Maps API
@@ -66,8 +63,8 @@ class HomeSearchForm extends Component {
 
     console.log(this.props);
     return (
-      <Grid>
-        <Form onSubmit={this.handleFormSubmit}>
+      <Grid className="HomeSearchGrid" textAlign="center">
+        <Form onSubmit={this.handleFormSubmit} width={10}>
           <PlacesAutocomplete
             inputProps={inputProps}
             renderSuggestion={renderSuggestion}
@@ -75,6 +72,7 @@ class HomeSearchForm extends Component {
             className="HomeSearchForm"
             onError={this.onError}
           />
+          <br />
           <Button type="submit">
             <Icon name="search" />Search
           </Button>

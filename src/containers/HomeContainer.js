@@ -10,10 +10,12 @@ export default class HomeContainer extends Component {
       <div
         className="HomeContainer"
         style={{
-          height: window.innerHeight * 0.65,
+          height: window.innerHeight * 0.88,
           alignItems: 'center',
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          backgroundImage: 'url(/landing_image.jpg)',
+          backgroundSize: 'cover'
         }}
       >
         <Grid>

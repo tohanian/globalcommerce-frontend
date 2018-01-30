@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { GOOGLE_MAPS_API_KEY } from '../secrets/apikeys';
 import { LISTING_API_URL, LISTING_API_TOKEN } from '../secrets/apikeys';
+import * as actions from '../actions';
 
 // High-Order React Components
 import { connect } from 'react-redux';
@@ -12,16 +13,13 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import ListingMarker from '../components/ListingMarker';
 
-// Fake test data
-// import { listingsData } from '../seed/data';
-
 class ListingContainer extends Component {
   state = {
     listing: null,
     liked: false
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.requestListing();
   }
 
@@ -35,12 +33,32 @@ class ListingContainer extends Component {
       }
     })
       .then(res => res.json())
-      .then(listing => this.setState({ listing: listing }));
+      .then(listing => {
+        this.setState({ listing: listing });
+      })
+      .then(() => {
+        const listingLiked = !!this.props.currentUser.likes.find(like => {
+          return like.mlsId === this.state.listing.mlsId;
+        });
+        if (listingLiked) {
+          this.setState({ liked: true });
+        }
+      });
   };
 
-  handleHeartClick = () => {
-    console.log(this.state);
-    this.setState({ liked: !this.state.liked });
+  addLike = e => {
+    e.preventDefault();
+    this.props.addLike(this.state.listing.mlsId);
+    this.setState({ liked: true });
+  };
+
+  deleteLike = e => {
+    e.preventDefault();
+    const likeId = this.props.currentUser.likes.find(
+      like => like.mlsId === this.state.listing.mlsId
+    ).id;
+    this.props.deleteLike(likeId);
+    this.setState({ liked: false });
   };
 
   convertToDollarAmount = number => {
@@ -95,13 +113,13 @@ class ListingContainer extends Component {
                         name="heart"
                         color="red"
                         size="big"
-                        onClick={this.handleHeartClick}
+                        onClick={this.deleteLike}
                       />
                     ) : (
                       <Icon
                         name="heart outline"
                         size="big"
-                        onClick={this.handleHeartClick}
+                        onClick={this.addLike}
                       />
                     )}
                   </Grid.Column>
@@ -221,8 +239,9 @@ class ListingContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    searchedListings: state.listing.listings
+    searchedListings: state.listing.listings,
+    currentUser: state.user.user
   };
 };
 
-export default connect(mapStateToProps, null)(ListingContainer);
+export default connect(mapStateToProps, actions)(ListingContainer);

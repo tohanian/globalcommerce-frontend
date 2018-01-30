@@ -2,27 +2,49 @@
 
 export const agentsData = [
   {
-    name: 'Bob Dole',
-    bio: 'Presidential candidate, always holds a pen',
-    email: 'bobdole@imightbedead.com',
-    profile_photo: 'http://img.kansasmemory.org/thumb500/00071392.jpg',
+    name: 'Scary Spice',
+    bio:
+      '“It was actually a lazy journalist that couldn’t be bothered to remember all our names, so he just gave us nicknames,” Mel B said. “And we were like, ‘Oh, well, that kind of works. I don’t mind my name. Do you like your name? Baby? Posh?’ We were like, ‘Let’s just go with it.’”',
+    email: 'scaryspice@spiceworld.com',
+    profile_photo:
+      'https://upload.wikimedia.org/wikipedia/commons/1/17/Mel_B_New_York_2017.jpg',
+    license_number: '884HKF2'
+  },
+  {
+    name: 'Sporty Spice',
+    bio:
+      '“I wanted to make an album that I would listen to now,” says Melanie. “I love playing my old hits live, but like everyone else, my tastes have moved on. I’m not a leftfield artist, I never will be. I write pop songs, but my aim this time was to approach every aspect of them differently, to be more creative with structure and sounds. Songs didn’t have to have a pre-chorus or be three minutes long. They might have real instruments or they might not. Whatever felt right, I went with.”',
+    email: 'sportyspice@spiceworld.com',
+    profile_photo:
+      'https://upload.wikimedia.org/wikipedia/commons/8/86/Melanie_C_-_2017356220452_2017-12-22_Night_of_the_Proms_-_Sven_-_1D_X_MK_II_-_0908_-_AK8I5028.jpg',
     license_number: '484HJD4'
   },
   {
-    name: 'Jerry Brown',
-    bio: 'an all business type of guy, people like me i guess',
-    email: 'email@email.com',
+    name: 'Baby Spice',
+    bio:
+      'An English singer, songwriter, actress, and radio and television presenter. She is best known as a member of the girl group the Spice Girls formed in the 1990s, and in which Bunton was nicknamed Baby Spice. In 2009, she began as a radio presenter on the Heart Breakfast show in London with Jamie Theakston and presenting her own show on Saturday between 5 and 7 p.m.',
+    email: 'babyspice@spiceworld.com',
     profile_photo:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/JerryBrownByPhilKonstantin.jpg/150px-JerryBrownByPhilKonstantin.jpg',
-    license_number: 'JFJ54858'
+      'https://upload.wikimedia.org/wikipedia/commons/8/87/Emma_Bunton_at_Heart_Live_Christmas_2016.jpg',
+    license_number: 'JFJ5485'
   },
   {
-    name: 'DJT',
-    bio: 'a brief bio',
-    email: 'stable@genius.com',
+    name: 'Ginger Spice',
+    bio:
+      'A member of the successful girl group the Spice Girls, the best selling girl group of all time with over 85 million records, of which more than 75 million copies sold with the quintet lineup with Halliwell.[5][6] In 1998 Halliwell left the Spice Girls, though she rejoined the group when they reunited in 2007. Halliwell reportedly amassed a $40 million fortune during her last two years in the group.',
+    email: 'ginerspice@spiceworld.com',
     profile_photo:
-      'https://www.whitehouse.gov/wp-content/uploads/2017/11/President-Trump-Official-Portrait.jpg',
-    license_number: '48484848'
+      'https://upload.wikimedia.org/wikipedia/commons/1/1f/Geri_Halliwell_attends_New_Year%27s_Eve_Party.jpg',
+    license_number: 'Z8W848J'
+  },
+  {
+    name: 'Posh Spice',
+    bio:
+      'An English businesswoman, fashion designer, model, and singer. In the late 1990s, Beckham rose to fame with the all-female pop group Spice Girls, and was dubbed Posh Spice by the July 1996 issue of the British music magazine Top of the Pops.[4] After the Spice Girls split, she was signed to Virgin Records and Telstar Records and had four UK Top 10 singles. Her first release, "Out of Your Mind", reached number 2 in the UK Singles Chart.',
+    email: 'poshspice@spiceworld.com',
+    profile_photo:
+      'https://upload.wikimedia.org/wikipedia/commons/e/e8/Victoria_Beckham_2010.jpg',
+    license_number: 'PL1848H'
   }
 ];
 

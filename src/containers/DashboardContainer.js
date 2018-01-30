@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { Grid, Segment } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import LikedListingsContainer from './LikedListingsContainer';
-import Agent from '../components/Agent';
+// import Agent from '../components/Agent';
 
 // Fake test data
-import { agentsData } from '../seed/data';
+// import { agentsData } from '../seed/data';
 
 class DashboardContainer extends Component {
   getFirstName = () => {
@@ -38,14 +38,14 @@ class DashboardContainer extends Component {
                   <h4>Email: {this.props.currentUser.email}</h4>
                 </Segment>
               </Grid.Column>
-              <Grid.Column width={11}>
+              {/* <Grid.Column width={11}>
                 <Agent agent={agentsData[1]} />
-              </Grid.Column>
+              </Grid.Column> */}
             </Grid.Row>
             <Grid.Row>
               <Grid.Column>
                 <h1>Liked Listings</h1>
-                {this.props.currentUser.likes ? (
+                {this.props.currentUser.likes.length !== 0 ? (
                   <LikedListingsContainer />
                 ) : (
                   this.noLikedListingsMessage()

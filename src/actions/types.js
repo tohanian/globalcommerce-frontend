@@ -1,3 +1,0 @@
-export const SET_USER = 'SET_USER';
-export const AUTH_ERROR = 'AUTH_ERROR';
-// export const SELECT_ACTIVE_PAINTING = 'SELECT_ACTIVE_PAINTING';

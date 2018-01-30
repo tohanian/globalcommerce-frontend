@@ -14,6 +14,8 @@ import ListingsRoute from '../routes/ListingsRoute';
 import ListingRoute from '../routes/ListingRoute';
 import DashboardRoute from '../routes/DashboardRoute';
 import ListingSearchRoute from '../routes/ListingSearchRoute';
+import AboutRoute from '../routes/AboutRoute';
+import ContactRoute from '../routes/ContactRoute';
 
 class AppContainer extends Component {
   render() {
@@ -33,6 +35,8 @@ class AppContainer extends Component {
               />
               <Route path="/listings/:mlsId" component={ListingRoute} />
               <Route path="/user/dashboard" component={DashboardRoute} />
+              <Route path="/about" component={AboutRoute} />
+              <Route path="/contact" component={ContactRoute} />
             </Switch>
           </Grid.Column>
         </Grid>

@@ -102,8 +102,8 @@ class ListingsContainer extends Component {
       return (
         <div>
           <Card.Group style={{ height: '75vh', overflowY: 'scroll' }}>
-            {this.filteredListings().map((listing, index) => (
-              <ListingCard key={index} listing={listing} />
+            {this.filteredListings().map(listing => (
+              <ListingCard key={listing.mlsId} listing={listing} />
             ))}
           </Card.Group>
         </div>
@@ -124,17 +124,26 @@ class ListingsContainer extends Component {
   setMapCenter = () => {
     if (this.props.listings.length !== 0) {
       let sumOfLatCoordinates = 0;
+      let countOfLatCoordinates = 0;
       let sumOfLngCoordinates = 0;
-      // debugger;
-      this.props.listings.forEach(
-        listing => (sumOfLatCoordinates += listing.geo.lat)
-      );
-      this.props.listings.forEach(
-        listing => (sumOfLngCoordinates += listing.geo.lng)
-      );
+      let countOfLngCoordinates = 0;
+
+      this.props.listings.forEach(listing => {
+        sumOfLatCoordinates += listing.geo.lat;
+        if (listing.geo.lat !== 0) {
+          countOfLatCoordinates += 1;
+        }
+      });
+
+      this.props.listings.forEach(listing => {
+        sumOfLngCoordinates += listing.geo.lng;
+        if (listing.geo.lng !== 0) {
+          countOfLngCoordinates += 1;
+        }
+      });
       return {
-        lat: sumOfLatCoordinates / this.props.listings.length,
-        lng: sumOfLngCoordinates / this.props.listings.length
+        lat: sumOfLatCoordinates / countOfLatCoordinates,
+        lng: sumOfLngCoordinates / countOfLngCoordinates
       };
     } else {
       return { lat: 34.047443, lng: -118.24975 };

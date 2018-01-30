@@ -4,7 +4,7 @@ import * as actions from '../actions';
 
 // React Components
 import { Menu, Button, Dropdown, Icon } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import WithAuth from './WithAuth';
 
 class NavBar extends Component {
@@ -23,7 +23,9 @@ class NavBar extends Component {
       <div className="navbar">
         <Menu pointing secondary color="blue" inverted>
           <Menu.Item>
-            <h1>homie</h1>
+            <Link to="/">
+              <h1>homie</h1>
+            </Link>
           </Menu.Item>
           <Menu.Item
             name="search"
@@ -48,6 +50,22 @@ class NavBar extends Component {
             exact
             to="/listings"
             active={activeItem === 'listings'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="about"
+            as={NavLink}
+            exact
+            to="/about"
+            active={activeItem === 'about'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name="contact"
+            as={NavLink}
+            exact
+            to="/contact"
+            active={activeItem === 'contact'}
             onClick={this.handleItemClick}
           />
           {this.props.loggedIn ? (

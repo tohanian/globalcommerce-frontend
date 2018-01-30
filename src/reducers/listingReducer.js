@@ -3,7 +3,8 @@
 const listingReducer = (
   state = {
     hoverListingCard: null,
-    listings: []
+    listings: [],
+    likedListings: []
   },
   action
 ) => {
@@ -14,6 +15,10 @@ const listingReducer = (
       return Object.assign({}, state, { hoverListingCard: null });
     case 'SET_LISTINGS':
       return Object.assign({}, state, { listings: action.listings });
+    case 'ADD_LIKED_LISTING':
+      let allLikedListings = state.likedListings.slice();
+      allLikedListings.push(action.listing);
+      return Object.assign({}, state, { likedListings: allLikedListings });
     default:
       return state;
   }

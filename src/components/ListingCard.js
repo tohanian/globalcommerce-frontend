@@ -6,6 +6,17 @@ import * as actions from '../actions';
 class ListingCard extends Component {
   state = { liked: false };
 
+  componentDidMount() {
+    if (this.props.currentUser) {
+      const listingLiked = !!this.props.currentUser.likes.find(
+        like => like.mlsId === this.props.listing.mlsId
+      );
+      if (listingLiked) {
+        this.setState({ liked: true });
+      }
+    }
+  }
+
   convertToDollarAmount = number => {
     const dollarAmount =
       '$' +
@@ -23,6 +34,12 @@ class ListingCard extends Component {
 
   deleteLike = e => {
     e.preventDefault();
+    if (this.props.currentUser) {
+      const likeId = this.props.currentUser.likes.find(
+        like => like.mlsId === this.props.listing.mlsId
+      ).id;
+      this.props.deleteLike(likeId);
+    }
     this.setState({ liked: false });
   };
 
@@ -30,6 +47,37 @@ class ListingCard extends Component {
     this.props.setHoverListingCard(this.props.listing.mlsId);
 
   handleMouseOut = () => this.props.unsetHoverListingCard();
+
+  //   import React from 'react'
+  // import { Header, Button, Popup, Grid } from 'semantic-ui-react'
+  //
+  // const PopupExampleFlowing = () => (
+  //   <Popup
+  //     trigger={<Button>Show flowing popup</Button>}
+  //     flowing
+  //     hoverable
+  //   >
+  //     <Grid centered divided columns={3}>
+  //       <Grid.Column textAlign='center'>
+  //         <Header as='h4'>Basic Plan</Header>
+  //         <p><b>2</b> projects, $10 a month</p>
+  //         <Button>Choose</Button>
+  //       </Grid.Column>
+  //       <Grid.Column textAlign='center'>
+  //         <Header as='h4'>Business Plan</Header>
+  //         <p><b>5</b> projects, $20 a month</p>
+  //         <Button>Choose</Button>
+  //       </Grid.Column>
+  //       <Grid.Column textAlign='center'>
+  //         <Header as='h4'>Premium Plan</Header>
+  //         <p><b>8</b> projects, $25 a month</p>
+  //         <Button>Choose</Button>
+  //       </Grid.Column>
+  //     </Grid>
+  //   </Popup>
+  // )
+  //
+  // export default PopupExampleFlowing
 
   render() {
     const l = this.props.listing;

@@ -96,7 +96,15 @@ export function addLike(mlsId) {
     headers: authHeaders,
     body: JSON.stringify({ mlsId: mlsId })
   });
-  return { type: 'ADD_LIKE', mlsId: mlsId };
+  return { type: 'ADD_LIKE' };
+}
+
+export function deleteLike(likeId) {
+  fetch(LIKES_API_URL + '/' + likeId, {
+    method: 'DELETE',
+    headers: authHeaders
+  });
+  return { type: 'DELETE_LIKE' };
 }
 
 export function getListings(query) {
@@ -113,4 +121,19 @@ export function getListings(query) {
 
 export function setListings(listings) {
   return { type: 'SET_LISTINGS', listings: listings };
+}
+
+export function getLikedListing(mlsId) {
+  return dispatch => {
+    fetch(LISTING_API_URL + '/' + mlsId, {
+      method: 'GET',
+      headers: listingApiHeaders
+    })
+      .then(res => res.json())
+      .then(listing => dispatch(addLikedListing(listing)));
+  };
+}
+
+export function addLikedListing(listing) {
+  return { type: 'ADD_LIKED_LISTING', listing: listing };
 }

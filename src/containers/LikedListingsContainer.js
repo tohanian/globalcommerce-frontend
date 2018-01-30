@@ -8,28 +8,41 @@ import { connect } from 'react-redux';
 import { Card } from 'semantic-ui-react';
 import ListingCard from '../components/ListingCard';
 
-// Fake Test Data
-import { listingsData } from '../seed/data';
-
 class LikedListingsContainer extends Component {
-  getLikedListings = () =>
-    this.props.currentUser.likes.map(like =>
-      listingsData.find(listing => listing.mlsId === like.mlsId)
-    );
+  componentDidMount() {
+    this.getLikedListings();
+  }
 
-  getLikedListingComponents = () =>
-    this.getLikedListings().map((likedListing, i) => (
-      <ListingCard key={i} listing={likedListing} />
+  addLikedListing = mlsId => {
+    this.props.getLikedListing(mlsId);
+  };
+
+  getLikedListings = () => {
+    this.props.currentUser.likes.forEach(like => {
+      if (
+        !this.props.likedListings.find(
+          likedListing => likedListing.mlsId === like.mlsId
+        )
+      ) {
+        this.addLikedListing(like.mlsId);
+      }
+    });
+  };
+
+  showLikedListings = () =>
+    this.props.likedListings.map(likedListing => (
+      <ListingCard key={likedListing.mlsId} listing={likedListing} />
     ));
 
   render() {
-    return <Card.Group>{this.getLikedListingComponents()}</Card.Group>;
+    return <Card.Group>{this.showLikedListings()}</Card.Group>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.user.user
+    currentUser: state.user.user,
+    likedListings: state.listing.likedListings
   };
 };
 
