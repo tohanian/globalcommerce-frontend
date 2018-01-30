@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-// React Components
-import { Menu, Button, Dropdown, Icon } from 'semantic-ui-react';
-import { NavLink, Link } from 'react-router-dom';
+// High-Order React Components
+import { connect } from 'react-redux';
 import WithAuth from './WithAuth';
+import { withRouter } from 'react-router';
+
+// React Components
+import { Menu, Button, Dropdown, Icon, Input } from 'semantic-ui-react';
+import { NavLink, Link } from 'react-router-dom';
 
 class NavBar extends Component {
-  state = { activeItem: '' };
+  state = { activeItem: '', query: '' };
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   handleLogout = () => {
     this.props.logoutUser();
+  };
+
+  handleSearchChange = e => this.setState({ query: e.target.value });
+
+  handleSearchSubmit = e => {
+    if (e.key === 'Enter') {
+      const query = this.state.query;
+      this.setState({ query: '' });
+      this.props.history.push(
+        '/listings/search/' + encodeURIComponent(this.state.query)
+      );
+    }
   };
 
   render() {
@@ -27,15 +42,15 @@ class NavBar extends Component {
               <h1>homie</h1>
             </Link>
           </Menu.Item>
-          <Menu.Item
-            name="search"
-            as={NavLink}
-            exact
-            to="/"
-            icon="search"
-            active={activeItem === 'home'}
-            onClick={this.handleItemClick}
-          />
+          <Menu.Item>
+            <Input
+              action={{ type: 'submit', content: 'Search' }}
+              placeholder="Find listings..."
+              onChange={this.handleSearchChange}
+              value={this.state.query}
+              onKeyUp={this.handleSearchSubmit}
+            />
+          </Menu.Item>
           <Menu.Item
             name="agents"
             as={NavLink}
@@ -115,4 +130,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default WithAuth(connect(mapStateToProps, actions)(NavBar));
+export default withRouter(WithAuth(connect(mapStateToProps, actions)(NavBar)));
