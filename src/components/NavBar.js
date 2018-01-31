@@ -23,7 +23,6 @@ class NavBar extends Component {
 
   handleSearchSubmit = e => {
     if (e.key === 'Enter') {
-      const query = this.state.query;
       this.setState({ query: '' });
       this.props.history.push(
         '/listings/search/' + encodeURIComponent(this.state.query)
