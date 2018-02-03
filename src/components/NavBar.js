@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as actions from '../actions';
+import { getFirstName } from '../helpers/helpers';
 
 // High-Order React Components
 import { connect } from 'react-redux';
@@ -24,6 +25,7 @@ class NavBar extends Component {
   handleSearchSubmit = e => {
     if (e.key === 'Enter') {
       this.setState({ query: '' });
+      this.props.setSearchQuery(this.state.query);
       this.props.history.push(
         '/listings/search/' + encodeURIComponent(this.state.query)
       );
@@ -44,8 +46,9 @@ class NavBar extends Component {
           <Menu.Item>
             <Input
               action={{ type: 'submit', content: 'Search' }}
-              placeholder="Find listings..."
+              placeholder="Find listings"
               onChange={this.handleSearchChange}
+              onSubmit={this.handleSearchSubmit}
               value={this.state.query}
               onKeyUp={this.handleSearchSubmit}
             />
@@ -84,7 +87,10 @@ class NavBar extends Component {
           />
           {this.props.loggedIn ? (
             <Menu.Menu position="right">
-              <Dropdown item text="Profile">
+              <Dropdown
+                item
+                text={`Welcome ${getFirstName(this.props.currentUser.name)}`}
+              >
                 <Dropdown.Menu divided="true">
                   <Dropdown.Item to="/user/dashboard" as={NavLink}>
                     <Icon name="heart" />Liked Listings

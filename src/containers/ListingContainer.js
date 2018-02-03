@@ -7,11 +7,20 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 
 // React Components
-import { Segment, Dimmer, Loader, Grid, List, Icon } from 'semantic-ui-react';
+import {
+  Segment,
+  Dimmer,
+  Loader,
+  Grid,
+  List,
+  Icon,
+  Header
+} from 'semantic-ui-react';
 import GoogleMapReact from 'google-map-react';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import ListingMarker from '../components/ListingMarker';
+import { Link } from 'react-router-dom';
 
 class ListingContainer extends Component {
   state = {
@@ -37,11 +46,13 @@ class ListingContainer extends Component {
         this.setState({ listing: listing });
       })
       .then(() => {
-        const listingLiked = !!this.props.currentUser.likes.find(like => {
-          return like.mlsId === this.state.listing.mlsId;
-        });
-        if (listingLiked) {
-          this.setState({ liked: true });
+        if (this.props.currentUser) {
+          const listingLiked = !!this.props.currentUser.likes.find(like => {
+            return like.mlsId === this.state.listing.mlsId;
+          });
+          if (listingLiked) {
+            this.setState({ liked: true });
+          }
         }
       });
   };
@@ -88,10 +99,23 @@ class ListingContainer extends Component {
       thumbnail: photo
     }));
 
+    // debugger;
+
     return (
       <Grid stackable columns={2}>
         <Grid.Row stretched>
           <Grid.Column width={6}>
+            <Segment color="green" textAlign="center">
+              <Link
+                to={`/listings/search/${encodeURIComponent(
+                  this.props.searchQuery
+                )}`}
+              >
+                <Header as="h4">
+                  <Header.Content>◀ Back to search results</Header.Content>
+                </Header>
+              </Link>
+            </Segment>
             <Segment color="green">
               <Grid>
                 <Grid.Row>
@@ -185,14 +209,14 @@ class ListingContainer extends Component {
                     Laundry: {l.property.laundryFeatures}
                   </List.Content>
                 </List.Item>
-                <List.Item>
+                {/* <List.Item>
                   <List.Icon name="chevron up" size="big" />
                   <List.Content verticalAlign="middle">
                     {`${l.property.stories} ${
                       l.property.stories > 1 ? 'floors' : 'floor'
                     }`}
                   </List.Content>
-                </List.Item>
+                </List.Item> */}
                 <List.Item>
                   <List.Icon name="theme" size="big" />
                   <List.Content verticalAlign="middle">
@@ -240,6 +264,7 @@ class ListingContainer extends Component {
 const mapStateToProps = state => {
   return {
     searchedListings: state.listing.listings,
+    searchQuery: state.listing.searchQuery,
     currentUser: state.user.user
   };
 };

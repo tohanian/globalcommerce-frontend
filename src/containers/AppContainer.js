@@ -19,6 +19,7 @@ import ContactRoute from '../routes/ContactRoute';
 
 class AppContainer extends Component {
   render() {
+    console.log(this.props.searchQuery);
     return (
       <div className="app-container">
         <Grid relaxed colums={1} padded>
@@ -47,8 +48,7 @@ class AppContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    // currentUser: state.user.user,
-    // loggedIn: state.user.loggedIn
+    searchQuery: state.listing.searchQuery
   };
 };
 

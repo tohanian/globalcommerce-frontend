@@ -137,3 +137,7 @@ export function getLikedListing(mlsId) {
 export function addLikedListing(listing) {
   return { type: 'ADD_LIKED_LISTING', listing: listing };
 }
+
+export function setSearchQuery(query) {
+  return { type: 'SET_SEARCH_QUERY', query: query };
+}

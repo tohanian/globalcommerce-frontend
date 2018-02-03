@@ -1,10 +1,9 @@
-// import { CREATE_USER, SET_USER } from '../actions/types';
-
 const listingReducer = (
   state = {
     hoverListingCard: null,
     listings: [],
-    likedListings: []
+    likedListings: [],
+    searchQuery: ''
   },
   action
 ) => {
@@ -19,6 +18,8 @@ const listingReducer = (
       let allLikedListings = state.likedListings.slice();
       allLikedListings.push(action.listing);
       return Object.assign({}, state, { likedListings: allLikedListings });
+    case 'SET_SEARCH_QUERY':
+      return Object.assign({}, state, { searchQuery: action.query });
     default:
       return state;
   }

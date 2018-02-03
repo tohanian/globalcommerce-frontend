@@ -130,14 +130,14 @@ class ListingsContainer extends Component {
 
       this.props.listings.forEach(listing => {
         sumOfLatCoordinates += listing.geo.lat;
-        if (listing.geo.lat !== 0) {
+        if (listing.geo.lat !== 0 && listing.geo.lat !== null) {
           countOfLatCoordinates += 1;
         }
       });
 
       this.props.listings.forEach(listing => {
         sumOfLngCoordinates += listing.geo.lng;
-        if (listing.geo.lng !== 0) {
+        if (listing.geo.lng !== 0 && listing.geo.lng !== null) {
           countOfLngCoordinates += 1;
         }
       });

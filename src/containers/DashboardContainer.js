@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getFirstName } from '../helpers/helpers';
 
 // High-Order React Components
 import { connect } from 'react-redux';
@@ -9,13 +10,10 @@ import { Redirect } from 'react-router-dom';
 import LikedListingsContainer from './LikedListingsContainer';
 // import Agent from '../components/Agent';
 
-// Fake test data
-// import { agentsData } from '../seed/data';
-
 class DashboardContainer extends Component {
-  getFirstName = () => {
-    return this.props.currentUser.name.split(' ')[0];
-  };
+  // getFirstName = () => {
+  //   return this.props.currentUser.name.split(' ')[0];
+  // };
 
   noLikedListingsMessage = () => {
     return (
@@ -34,7 +32,10 @@ class DashboardContainer extends Component {
             <Grid.Row>
               <Grid.Column width={5}>
                 <Segment color="green">
-                  <h3>Welcome to your profile, {this.getFirstName()}.</h3>
+                  <h3>
+                    Welcome to your profile,{' '}
+                    {getFirstName(this.props.currentUser.name)}.
+                  </h3>
                   <h4>Email: {this.props.currentUser.email}</h4>
                 </Segment>
               </Grid.Column>

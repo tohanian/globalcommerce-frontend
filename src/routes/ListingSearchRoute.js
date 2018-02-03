@@ -9,7 +9,10 @@ import ListingsContainer from '../containers/ListingsContainer';
 
 class ListingSearchRoute extends Component {
   render() {
-    this.props.getListings(this.props.match.params.query);
+    const searchQuery = this.props.match.params.query;
+    this.props.getListings(searchQuery);
+    this.props.setSearchQuery(searchQuery);
+
     return (
       <div>
         <ListingsContainer />

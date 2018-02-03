@@ -15,18 +15,19 @@ class HomeSearchForm extends Component {
   onChange = query => this.setState({ query });
 
   encodeSearchQuery = () => {
-    console.log('Search query', this.state.query);
-    const encodedURI = encodeURIComponent(
-      this.state.query
-        .replace(', CA, United States', '')
-        .replace('CA ', '')
-        .replace(', United States', '')
-    );
+    const encodedURI = encodeURIComponent(this.removeExtraSearchParameters());
     return encodedURI;
   };
 
+  removeExtraSearchParameters = () =>
+    this.state.query
+      .replace(', CA, United States', '')
+      .replace('CA ', '')
+      .replace(', United States', '');
+
   handleFormSubmit = e => {
     e.preventDefault();
+    this.props.setSearchQuery(this.removeExtraSearchParameters());
     this.props.history.push('/listings/search/' + this.encodeSearchQuery());
 
     // Code below converts search query into GPS coordinates via Google Maps API
