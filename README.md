@@ -6,9 +6,7 @@ Global Commerce allows prospective home buyers and renters to search for listing
 
 Home buyers/renters can search for open listings through a geographically-based search. Users can search cities, neighborhoods, and zip codes via the inputs on the landing page or the nav bar. The search field on the landing page has auto-complete powered by the Google Places API.
 
-![Landing page screenshot](https://github.com/landingpage 'Landing Page')
-
-![Nav bar screenshot](https://github.com/landingpage 'Nav Bar')
+![Landing page screenshot](https://github.com/tohanian/globalcommerce-frontend/blob/master/screenshots/landing_page.png?raw=true'Landing Page')
 
 ## Search Results / Map View
 
