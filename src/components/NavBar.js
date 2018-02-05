@@ -44,7 +44,7 @@ class NavBar extends Component {
         <Menu pointing secondary color="blue" inverted>
           <Menu.Item>
             <Link to="/">
-              <h1>homie</h1>
+              <h1>gc</h1>
             </Link>
           </Menu.Item>
           <Menu.Item>
