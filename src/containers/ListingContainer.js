@@ -224,6 +224,7 @@ class ListingContainer extends Component {
                   </List.Content>
                 </List.Item>
               </List>
+              <small>Disclaimer: {l.disclaimer}</small>
             </Segment>
           </Grid.Column>
           <Grid.Column width={10} textAlign="center">

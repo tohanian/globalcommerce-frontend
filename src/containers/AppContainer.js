@@ -10,16 +10,15 @@ import HomeRoute from '../routes/HomeRoute';
 import SignUpRoute from '../routes/SignUpRoute';
 import SignInRoute from '../routes/SignInRoute';
 import AgentsRoute from '../routes/AgentsRoute';
-import ListingsRoute from '../routes/ListingsRoute';
 import ListingRoute from '../routes/ListingRoute';
 import DashboardRoute from '../routes/DashboardRoute';
 import ListingSearchRoute from '../routes/ListingSearchRoute';
 import AboutRoute from '../routes/AboutRoute';
 import ContactRoute from '../routes/ContactRoute';
+import NoResultsRoute from '../routes/NoResultsRoute';
 
 class AppContainer extends Component {
   render() {
-    console.log(this.props.searchQuery);
     return (
       <div className="app-container">
         <Grid relaxed colums={1} padded>
@@ -29,10 +28,13 @@ class AppContainer extends Component {
               <Route exact path="/signin" component={SignInRoute} />
               <Route exact path="/signup" component={SignUpRoute} />
               <Route exact path="/agents" component={AgentsRoute} />
-              <Route exact path="/listings/" component={ListingsRoute} />
               <Route
                 path="/listings/search/:query"
                 component={ListingSearchRoute}
+              />
+              <Route
+                path="/listings/search/noresults"
+                component={NoResultsRoute}
               />
               <Route path="/listings/:mlsId" component={ListingRoute} />
               <Route path="/user/dashboard" component={DashboardRoute} />

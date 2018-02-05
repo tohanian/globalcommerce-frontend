@@ -24,11 +24,15 @@ class NavBar extends Component {
 
   handleSearchSubmit = e => {
     if (e.key === 'Enter') {
-      this.setState({ query: '' });
-      this.props.setSearchQuery(this.state.query);
-      this.props.history.push(
-        '/listings/search/' + encodeURIComponent(this.state.query)
-      );
+      if (this.state.query !== '') {
+        this.setState({ query: '' });
+        this.props.setSearchQuery(this.state.query);
+        this.props.history.push(
+          '/listings/search/' + encodeURIComponent(this.state.query)
+        );
+      } else {
+        this.props.history.push('/listings/search/noresults');
+      }
     }
   };
 
